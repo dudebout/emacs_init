@@ -207,9 +207,9 @@
            (org-agenda-overriding-header "Unscheduled TODO entries: "))
           ("w" tags-todo "@work"))
         org-capture-templates
-        '(("t" "Todo" entry
+        '(("r" "read" entry
            (file+headline org-default-notes-file "todo capture")
-           "* TODO %?\n%u")
+           "* TODO read %?%a\nSCHEDULED: %t")
           ("d" "Todo today" entry
            (file+headline org-default-notes-file "todo capture")
            "* TODO %?\nSCHEDULED: %t")
