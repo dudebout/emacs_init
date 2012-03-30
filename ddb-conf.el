@@ -291,10 +291,6 @@
 
   (add-hook 'gnus-group-mode-hook 'gnus-topic-mode))
 
-(defun ddb/conf/paredit ()
-  (require 'paredit)
-  (add-hook 'prog-mode-hook 'enable-paredit-mode))
-
 (defun ddb/conf/smex ()
   (require 'smex)
   (smex-initialize)
@@ -316,9 +312,11 @@
   (setq-default save-place t))
 
 (defun ddb/conf/prog ()
+  (require 'paredit)
   (defun ddb/conf/prog/hook ()
     (idle-highlight-mode t)
     (flyspell-prog-mode)
+    (enable-paredit-mode)
     (set (make-local-variable 'comment-auto-fill-only-comments) t)
     (auto-fill-mode t)
     (hl-line-mode t))
