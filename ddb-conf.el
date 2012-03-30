@@ -167,6 +167,12 @@
   (setq twittering-use-master-password t
         twittering-icon-mode t))
 
+(defun ddb/conf/haskell ()
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+  (add-hook 'haskell-mode-hook 'ddb/conf/prog/hook)
+  (define-key haskell-mode-map (kbd "C-;") 'haskell-hoogle))
+
 (defun ddb/conf/latex ()
   (setq TeX-electric-sub-and-superscript t
         TeX-parse-self t
