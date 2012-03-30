@@ -168,10 +168,16 @@
         twittering-icon-mode t))
 
 (defun ddb/conf/haskell ()
-  (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-  (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-  (add-hook 'haskell-mode-hook 'ddb/conf/prog/hook)
-  (define-key haskell-mode-map (kbd "C-;") 'haskell-hoogle))
+  (defun ddb/conf/haskell/hook ()
+    (turn-on-haskell-doc-mode)
+    (turn-on-haskell-indent)
+    ;; temporary fix until haskell-mode is derived from prog-mode
+    (ddb/conf/prog/hook))
+
+  (add-hook 'haskell-mode-hook 'ddb/conf/haskell/hook)
+
+  (eval-after-load "haskell-mode-map"
+    '(define-key haskell-mode-map (kbd "C-;") 'haskell-hoogle)))
 
 (defun ddb/conf/latex ()
   (setq TeX-electric-sub-and-superscript t
