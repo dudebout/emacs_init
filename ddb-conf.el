@@ -293,7 +293,8 @@
                       ("\\paragraph{%s}" . "\\paragraph*{%s}"))))))
 
 (defun ddb/conf/gnus ()
-  (setq gnus-always-read-dribble-file t)
+  (setq gnus-always-read-dribble-file t
+        gnus-message-archive-method nil)
 
   (add-hook 'gnus-group-mode-hook 'gnus-topic-mode))
 
