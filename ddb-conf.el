@@ -37,13 +37,6 @@
     (when (not (package-installed-p package))
       (package-install package))))
 
-(defun ddb/conf/activate-disabled-functions ()
-  (put 'downcase-region 'disabled nil)  ; Enables C-x C-l
-  (put 'upcase-region 'disabled nil)    ; Enables C-x C-u
-  (put 'narrow-to-region 'disabled nil) ; Enables C-x n n (widen with C-x n w)
-  (put 'set-goal-column 'disabled nil)  ; Enables C-x C-n (unset with C-u C-x C-n)
-  (put 'scroll-left 'disabled nil))     ; Enables C-x >
-
 (defun ddb/conf/global-set-keys ()
   (global-set-key (kbd "C-S-f") 'windmove-right)
   (global-set-key (kbd "C-S-b") 'windmove-left)
@@ -91,7 +84,8 @@
         whitespace-line-column nil
         bookmark-save-flag 1
         enable-recursive-minibuffers t
-        sentence-end-double-space nil)
+        sentence-end-double-space nil
+        disabled-command-function nil)
 
   (setq-default fill-column 80
                 show-trailing-whitespace t

@@ -17,7 +17,6 @@
 (ddd/conf/general-behavior)
 (ddb/conf/copy-cut-line-at-point)
 (ddb/conf/ask-before-suspend)
-(ddb/conf/activate-disabled-functions)
 (ddb/conf/global-set-keys)
 (ddb/conf/external-programs)
 
