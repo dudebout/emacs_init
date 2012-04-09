@@ -329,6 +329,8 @@
   (add-hook 'text-mode-hook 'ddb/conf/text/hook))
 
 (defun ddb/conf/dired ()
+  ;; needed to have 'C-x C-j' bound properly
+  (require 'dired)
   (setq dired-listing-switches "-l"
         dired-dwim-target t)
 
