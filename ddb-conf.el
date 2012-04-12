@@ -161,6 +161,13 @@
   (setq twittering-use-master-password t
         twittering-icon-mode t))
 
+(defun ddb/conf/elisp ()
+  (require 'paredit)
+  (defun ddb/conf/emacs-lisp/hook ()
+    (enable-paredit-mode))
+
+  (add-hook 'emacs-lisp-mode-hook 'ddb/conf/emacs-lisp/hook))
+
 (defun ddb/conf/haskell ()
   (defun ddb/conf/haskell/hook ()
     (turn-on-haskell-doc-mode)
@@ -313,11 +320,10 @@
   (setq-default save-place t))
 
 (defun ddb/conf/prog ()
-  (require 'paredit)
   (defun ddb/conf/prog/hook ()
+    (electric-pair-mode)
     (idle-highlight-mode t)
     (flyspell-prog-mode)
-    (enable-paredit-mode)
     (set (make-local-variable 'comment-auto-fill-only-comments) t)
     (auto-fill-mode t)
     (hl-line-mode t))

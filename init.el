@@ -32,6 +32,7 @@
 
 (ddb/conf/prog)
 (ddb/conf/text)
+(ddb/conf/elisp)
 (ddb/conf/haskell)
 (ddb/conf/latex)
 (ddb/conf/bibtex)
