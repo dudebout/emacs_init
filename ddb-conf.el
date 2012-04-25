@@ -390,7 +390,8 @@
 
 (defun ddb/conf/auto-complete ()
   (require 'auto-complete-config)
-  (ac-config-default))
+  (ac-config-default)
+  (ac-flyspell-workaround))
 
 (defun ddb/conf/yasnippet ()
   (require 'yasnippet)
