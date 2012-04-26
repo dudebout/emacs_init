@@ -49,7 +49,8 @@
   (winner-mode 1) ; C-c left = undo in window configuration
   (global-set-key (kbd "C-<tab>") 'bury-buffer)
   (global-set-key (kbd "M-/") 'hippie-expand)
-  (global-set-key (kbd "C-'") 'ace-jump-mode)
+  (global-set-key (kbd "C-=") 'ace-jump-mode)
+  (global-set-key (kbd "C-'") 'er/expand-region)
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c b") 'org-iswitchb)
   (global-set-key (kbd "C-c c") 'org-capture)
