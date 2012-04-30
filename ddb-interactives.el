@@ -1,3 +1,9 @@
+(defun ddb/create-scratch-buffer ()
+  "Create a scratch buffer."
+  (interactive)
+  (switch-to-buffer (get-buffer-create "*scratch*"))
+  (lisp-interaction-mode))
+
 (defun ddb/eval-and-replace ()
   "Replace the preceding sexp with its value."
   (interactive)
