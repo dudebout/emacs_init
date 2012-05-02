@@ -249,6 +249,7 @@
                         ("contact" . ?c)
                         ("bug" . ?b))
         org-todo-keywords '((sequence "TODO(t)" "WAITING(w@)" "|" "DONE(d)")
+                            (sequence "APPT(a)" "|" "MET(m)")
                             (sequence "READ(r)" "WATCH(a)" "|" "CONSUMED(c)")
                             (sequence "PROJECT(p)" "STARTED(s)" "|" "FINISHED(f)"))
         org-export-latex-hyperref-format "\\cref{%s}"
