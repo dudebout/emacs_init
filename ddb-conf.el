@@ -195,7 +195,8 @@
       (reftex-set-cite-format 'default)
       (setq reftex-plug-into-AUCTeX t)))
 
-  (add-hook 'LaTeX-mode-hook 'ddb/conf/latex/reftex))
+  (add-hook 'LaTeX-mode-hook 'ddb/conf/latex/reftex)
+  (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode))
 
 (defun ddb/conf/org ()
   (require 'org-protocol)
