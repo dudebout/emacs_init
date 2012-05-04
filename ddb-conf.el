@@ -225,6 +225,9 @@
         '(("r" "read" entry
            (file+headline org-default-notes-file "todo capture")
            "* TODO read %?%a\nSCHEDULED: %t")
+          ("a" "Appointment" entry
+           (file+headline org-default-notes-file "events capture")
+           "* APPT %?\nSCHEDULED: %t")
           ("d" "Todo today" entry
            (file+headline org-default-notes-file "todo capture")
            "* TODO %?\nSCHEDULED: %t")
