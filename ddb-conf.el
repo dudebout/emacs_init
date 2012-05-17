@@ -214,6 +214,8 @@
         org-agenda-skip-scheduled-if-done t
         org-agenda-skip-deadline-if-done t
         org-agenda-start-on-weekday nil
+        org-agenda-window-setup 'current-window
+        org-agenda-restore-windows-after-quit t
         org-agenda-custom-commands
         '(("u" alltodo ""
            ((org-agenda-skip-function
