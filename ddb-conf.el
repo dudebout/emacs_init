@@ -409,6 +409,7 @@
   (ido-mode t)
   (ido-ubiquitous-mode t)
   (setq ido-create-new-buffer 'always
+        ido-ignore-files '("\\`CVS/" "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./" "\\.hi\\'")
         ido-enable-flex-matching t
         ido-use-virtual-buffers t
         ido-use-filename-at-point 'guess
