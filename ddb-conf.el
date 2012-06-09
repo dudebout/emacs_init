@@ -104,6 +104,7 @@
   (show-paren-mode 1)
   (global-auto-revert-mode t)
   (global-visual-line-mode)
+  (display-battery-mode)
 
   (defalias 'yes-or-no-p 'y-or-n-p)
   (defalias 'auto-tail-revert-mode 'tail-mode)
