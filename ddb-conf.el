@@ -109,6 +109,7 @@
   (defalias 'yes-or-no-p 'y-or-n-p)
   (defalias 'auto-tail-revert-mode 'tail-mode)
 
+  (add-hook 'isearch-mode-end-hook 'recenter-top-bottom)
   (add-hook 'before-save-hook 'whitespace-cleanup)
   (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p))
 
