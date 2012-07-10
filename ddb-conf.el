@@ -59,6 +59,7 @@
   (global-set-key (kbd "C-c g") 'gnus)
   (global-set-key (kbd "C-c i") 'magit-status)
   (global-set-key (kbd "<f6>") 'ddb/insert-math-latex)
+  (global-set-key (kbd "<f7>") 'compile)
   (global-set-key (kbd "<f8>") 'menu-bar-mode)
   (global-set-key (kbd "<f10>") 'linum-mode)
   (global-set-key (kbd "C-c M-e") 'ddb/eval-and-replace)
@@ -86,7 +87,8 @@
         bookmark-save-flag 1
         enable-recursive-minibuffers t
         sentence-end-double-space nil
-        disabled-command-function nil)
+        disabled-command-function nil
+        compilation-read-command nil)
 
   (setq-default fill-column 80
                 show-trailing-whitespace t
