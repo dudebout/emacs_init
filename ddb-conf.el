@@ -62,7 +62,7 @@
   (global-set-key (kbd "<f7>") 'compile)
   (global-set-key (kbd "<f8>") 'menu-bar-mode)
   (global-set-key (kbd "<f10>") 'linum-mode)
-  (global-set-key (kbd "C-c M-e") 'ddb/eval-and-replace)
+  (global-set-key (kbd "C-x M-e") 'ddb/eval-and-replace)
   (global-set-key (kbd "C-x M-w") 'ddb/swap-buffers-in-windows)
   (global-set-key (kbd "C-x M-k") 'ddb/delete-current-buffer-and-delete-file)
   (global-set-key (kbd "C-x M-s") 'ddb/sudo-edit))
