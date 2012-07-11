@@ -8,7 +8,7 @@
 (require 'ddb-interactives)
 (require 'ddb-conf)
 
-(setq ddb/packages '(ace-jump-mode paredit smex ido-ubiquitous auctex org zenburn-theme magit haml-mode haskell-mode twittering-mode auto-complete yasnippet idle-highlight-mode anything anything-config expand-region minimap ssh-config-mode ampc))
+(setq ddb/packages '(ace-jump-mode paredit smex ido-ubiquitous auctex org zenburn-theme magit haml-mode haskell-mode twittering-mode auto-complete yasnippet idle-highlight-mode anything anything-config expand-region minimap ssh-config-mode ampc rainbow-delimiters dired+ bookmark+))
 
 (ddb/conf/install-packages ddb/packages)
 
@@ -29,6 +29,7 @@
 (ddb/conf/yasnippet)
 (ddb/conf/ido)
 (ddb/conf/changelog)
+(ddb/conf/rainbow-delimiters)
 
 (ddb/conf/prog)
 (ddb/conf/text)
@@ -39,6 +40,7 @@
 
 (ddb/conf/ibuffer)
 (ddb/conf/dired)
+(ddb/conf/dired+)
 (ddb/conf/gnus)
 (ddb/conf/twittering)
 (ddb/conf/org)
