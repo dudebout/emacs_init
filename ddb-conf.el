@@ -192,6 +192,7 @@
         TeX-auto-local "auto/"
         TeX-auto-save t
         TeX-save-query nil
+        TeX-force-default-mode t
         preview-scale-function 1.5)
 
   (defun ddb/conf/latex/reftex ()
