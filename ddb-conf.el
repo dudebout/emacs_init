@@ -38,6 +38,7 @@
       (package-install package))))
 
 (defun ddb/conf/global-set-keys ()
+  (winner-mode 1) ; C-c left = undo in window configuration
   (global-set-key (kbd "C-S-f") 'windmove-right)
   (global-set-key (kbd "C-S-b") 'windmove-left)
   (global-set-key (kbd "C-S-n") 'windmove-down)
@@ -46,7 +47,6 @@
   (global-set-key (kbd "C-S-<right>") 'enlarge-window-horizontally)
   (global-set-key (kbd "C-S-<down>") 'shrink-window)
   (global-set-key (kbd "C-S-<up>") 'enlarge-window)
-  (winner-mode 1) ; C-c left = undo in window configuration
   (global-set-key (kbd "C-<tab>") 'bury-buffer)
   (global-set-key (kbd "M-/") 'hippie-expand)
   (global-set-key (kbd "C-=") 'ace-jump-mode)
@@ -88,8 +88,7 @@
         enable-recursive-minibuffers t
         sentence-end-double-space nil
         disabled-command-function nil
-        compilation-read-command nil
-        font-lock-maximum-decoration '((dired-mode . nil) (t . t)))
+        compilation-read-command nil)
 
   (setq-default fill-column 80
                 show-trailing-whitespace t
@@ -351,13 +350,20 @@
 (defun ddb/conf/dired ()
   ;; needed to have 'C-x C-j' bound properly
   (require 'dired)
-  (setq dired-listing-switches "-l"
+  (setq dired-listing-switches "-lh"
         dired-dwim-target t)
 
   (eval-after-load "dired"
     '(progn
        (define-key dired-mode-map (kbd ".") 'ddb/dired-toggle-show-all)
        (define-key dired-mode-map (kbd "C-c C-o") 'ddb/dired-open-file))))
+
+(defun ddb/conf/dired-details ()
+  (require 'dired-details)
+  (setq dired-details-hidden-string "[+] ")
+  (dired-details-install)
+  (define-key dired-mode-map "," 'dired-details-toggle))
+
 
 (defun ddb/conf/dired+ ()
   (require 'dired+))

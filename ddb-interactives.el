@@ -55,10 +55,12 @@
         (message "File '%s' successfully removed" filename)))))
 
 (defun ddb/dired-toggle-show-all ()
-  "Toggle the -a flag for ls in dired."
+  "Toggle the -A flag for ls in dired."
   (interactive)
   (dired-sort-other
-   (if (equal dired-actual-switches "-l") "-al" "-l")))
+   (if (equal (substring dired-actual-switches -1) "A")
+       (substring dired-actual-switches 0 -1)
+     (concat dired-actual-switches "A"))))
 
 (defun ddb/dired-open-file (arg)
   "Abuse org-open-file to open a file at point externally."
