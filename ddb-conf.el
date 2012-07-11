@@ -88,7 +88,8 @@
         enable-recursive-minibuffers t
         sentence-end-double-space nil
         disabled-command-function nil
-        compilation-read-command nil)
+        compilation-read-command nil
+        font-lock-maximum-decoration '((dired-mode . nil) (t . t)))
 
   (setq-default fill-column 80
                 show-trailing-whitespace t
@@ -357,6 +358,9 @@
        (define-key dired-mode-map (kbd ".") 'ddb/dired-toggle-show-all)
        (define-key dired-mode-map (kbd "C-c C-o") 'ddb/dired-open-file))))
 
+(defun ddb/conf/dired+ ()
+  (require 'dired+))
+
 (defun ddb/conf/ibuffer ()
   (global-set-key (kbd "C-x C-b") 'ibuffer)
 
@@ -428,6 +432,9 @@
       (setq add-log-full-name (substring (shell-command-to-string "git config user.name") 0 -1)
             add-log-mailing-address (substring (shell-command-to-string "git config user.email") 0 -1))))
   (add-hook 'find-file-hook 'ddb/conf/changelog/set-git-name-and-email))
+
+(defun ddb/conf/rainbow-delimiters ()
+  (global-rainbow-delimiters-mode))
 
 (defun ddb/conf/anything ()
   (setq anything-command-map-prefix-key "<f5>")
