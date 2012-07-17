@@ -184,6 +184,9 @@
   (eval-after-load "haskell-mode-map"
     '(define-key haskell-mode-map (kbd "C-;") 'haskell-hoogle)))
 
+(defun ddb/conf/python ()
+  (add-to-list 'auto-mode-alist '("SConstruct\\'" . python-mode)))
+
 (defun ddb/conf/latex ()
   (setq TeX-electric-sub-and-superscript t
         TeX-parse-self t
