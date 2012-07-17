@@ -422,6 +422,7 @@
 
 (defun ddb/conf/ido ()
   (ido-mode t)
+  (ido-everywhere t)
   (setq ido-create-new-buffer 'always
         ido-ignore-files '("\\`CVS/" "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./" "\\.hi\\'")
         ido-enable-flex-matching t
