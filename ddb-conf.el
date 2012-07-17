@@ -422,13 +422,15 @@
 
 (defun ddb/conf/ido ()
   (ido-mode t)
-  (ido-ubiquitous-mode t)
   (setq ido-create-new-buffer 'always
         ido-ignore-files '("\\`CVS/" "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./" "\\.hi\\'")
         ido-enable-flex-matching t
         ido-use-virtual-buffers t
         ido-use-filename-at-point 'guess
         ido-use-url-at-point t))
+
+(defun ddb/conf/ido-ubiquitous ()
+  (ido-ubiquitous-mode t))
 
 (defun ddb/conf/changelog ()
   (make-local-variable 'add-log-full-name)

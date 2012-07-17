@@ -28,6 +28,7 @@
 (ddb/conf/auto-complete)
 (ddb/conf/yasnippet)
 (ddb/conf/ido)
+(ddb/conf/ido-ubiquitous)
 (ddb/conf/changelog)
 (ddb/conf/rainbow-delimiters)
 
