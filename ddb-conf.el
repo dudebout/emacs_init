@@ -79,6 +79,7 @@
         reb-re-syntax 'string
         recentf-max-saved-items nil
         diff-switches "-u"
+        use-dialog-box nil
         visual-line-fringe-indicators '(left-curly-arrow nil)
         confirm-nonexistent-file-or-buffer nil
         ediff-window-setup-function 'ediff-setup-windows-plain
