@@ -153,7 +153,6 @@
 (defun ddb/conf/magit ()
   (setq magit-set-upstream-on-push t
         magit-save-some-buffers 'dontask
-        magit-completing-read-function 'magit-ido-completing-read
         magit-create-branch-behaviour 'at-point
         magit-log-auto-more t
         magit-process-popup-time 5
