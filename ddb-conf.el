@@ -39,10 +39,7 @@
 
 (defun ddb/conf/global-set-keys ()
   (winner-mode 1) ; C-c left = undo in window configuration
-  (global-set-key (kbd "C-S-f") 'windmove-right)
-  (global-set-key (kbd "C-S-b") 'windmove-left)
-  (global-set-key (kbd "C-S-n") 'windmove-down)
-  (global-set-key (kbd "C-S-p") 'windmove-up)
+  (windmove-default-keybindings)
   (global-set-key (kbd "C-S-<left>") 'shrink-window-horizontally)
   (global-set-key (kbd "C-S-<right>") 'enlarge-window-horizontally)
   (global-set-key (kbd "C-S-<down>") 'shrink-window)
