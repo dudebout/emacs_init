@@ -344,7 +344,7 @@
 
 (defun ddb/conf/text ()
   (defun ddb/conf/text/hook ()
-    (flyspell-prog-mode))
+    (flyspell-mode))
   (add-hook 'text-mode-hook 'ddb/conf/text/hook))
 
 (defun ddb/conf/dired ()
