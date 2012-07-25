@@ -147,7 +147,6 @@
 
   (add-hook 'bibtex-mode-hook 'ddb/conf/bibtex/disable-fill-column))
 
-;; magit
 (defun ddb/conf/magit ()
   (setq magit-set-upstream-on-push t
         magit-save-some-buffers 'dontask

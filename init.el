@@ -45,7 +45,9 @@
 (ddb/conf/dired-details)
 (ddb/conf/dired+)
 (ddb/conf/gnus)
-(ddb/conf/twittering)
+(ddb/conf/magit)
 (ddb/conf/org)
+(ddb/conf/twittering)
+
 
 (require 'ddb-temp)
