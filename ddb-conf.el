@@ -191,6 +191,7 @@
         TeX-auto-save t
         TeX-save-query nil
         TeX-force-default-mode t
+        TeX-source-correlate-method 'synctex
         preview-scale-function 1.5)
 
   (defun ddb/conf/latex/reftex ()
@@ -199,9 +200,11 @@
       (reftex-set-cite-format 'default)
       (setq reftex-plug-into-AUCTeX t)))
 
+  (defun ddb/conf/latex/synctex ()
+    (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode))
+
   (add-hook 'LaTeX-mode-hook 'ddb/conf/latex/reftex)
   (add-hook 'LaTeX-mode-hook 'TeX-toggle-debug-warnings)
-  (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
   (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode))
 
 (defun ddb/conf/org ()
