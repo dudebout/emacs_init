@@ -207,6 +207,9 @@
   (add-hook 'LaTeX-mode-hook 'TeX-toggle-debug-warnings)
   (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode))
 
+(defun ddb/conf/octave ()
+  (add-to-list 'auto-mode-alist '("\\.m\\'" . octave-mode)))
+
 (defun ddb/conf/org ()
   (require 'org-protocol)
   (org-clock-persistence-insinuate)

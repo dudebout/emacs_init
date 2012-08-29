@@ -39,6 +39,7 @@
 (ddb/conf/python)
 (ddb/conf/latex)
 (ddb/conf/bibtex)
+(ddb/conf/octave)
 
 (ddb/conf/ibuffer)
 (ddb/conf/dired)
