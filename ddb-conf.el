@@ -446,8 +446,8 @@
   (defun ddb/conf/changelog/set-git-name-and-email ()
     (when (and buffer-file-name
                (eq (vc-backend buffer-file-name) 'Git))
-      (setq add-log-full-name (substring (shell-command-to-string "git config user.name") 0 -1)
-            add-log-mailing-address (substring (shell-command-to-string "git config user.email") 0 -1))))
+      (setq add-log-full-name (split-string (shell-command-to-string "git config user.name") "\n" t)
+            add-log-mailing-address (split-string (shell-command-to-string "git config user.email") "\n" t))))
   (add-hook 'find-file-hook 'ddb/conf/changelog/set-git-name-and-email))
 
 (defun ddb/conf/rainbow-delimiters ()
