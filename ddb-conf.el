@@ -203,6 +203,8 @@
   (defun ddb/conf/latex/synctex ()
     (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode))
 
+  (add-to-list 'auto-mode-alist '("\\.tikz\\'" . latex-mode))
+
   (add-hook 'LaTeX-mode-hook 'ddb/conf/latex/reftex)
   (add-hook 'LaTeX-mode-hook 'TeX-toggle-debug-warnings)
   (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode))
