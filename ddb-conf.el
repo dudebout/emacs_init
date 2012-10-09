@@ -154,6 +154,7 @@
         magit-log-auto-more t
         magit-process-popup-time 5
         magit-revert-item-confirm nil
+        magit-default-tracking-name-function 'magit-default-tracking-name-branch-only
         magit-status-buffer-switch-function 'switch-to-buffer)
 
   (setq-default diff-auto-refine-mode nil))
