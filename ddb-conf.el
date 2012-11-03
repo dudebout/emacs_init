@@ -411,6 +411,17 @@
 
   (add-hook 'ibuffer-mode-hook 'ddb/conf/ibuffer/set-initial-group))
 
+(defun ddb/conf/multiple-cursors ()
+  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+  (global-set-key (kbd "C-S-c C-e") 'mc/edit-ends-of-lines)
+  (global-set-key (kbd "C-S-c C-a") 'mc/edit-beginnings-of-lines)
+  (global-set-key (kbd "C-S-c C-s") 'mc/mark-all-in-region)
+
+  (global-set-key (kbd "C-\"") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-|") 'mc/mark-all-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C->") 'mc/mark-more-like-this-extended))
+
 (defun ddb/conf/ffap-latex ()
   (setq ffap-kpathsea-depth 4)
 
