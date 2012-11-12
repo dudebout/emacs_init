@@ -213,6 +213,14 @@
 (defun ddb/conf/octave ()
   (add-to-list 'auto-mode-alist '("\\.m\\'" . octave-mode)))
 
+(defun ddb/conf/less ()
+  (add-to-list 'auto-mode-alist '("\\.less\\'" . less-css-mode)))
+
+(defun ddb/conf/shakespearean ()
+  (add-to-list 'auto-mode-alist '("\\.hamlet\\'" . html-mode))
+  (add-to-list 'auto-mode-alist '("\\.lucius\\'" . css-mode))
+  (add-to-list 'auto-mode-alist '("\\.julius\\'" . javascript-mode)))
+
 (defun ddb/conf/org ()
   (require 'org-protocol)
   (org-clock-persistence-insinuate)

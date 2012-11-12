@@ -8,7 +8,7 @@
 (require 'ddb-interactives)
 (require 'ddb-conf)
 
-(setq ddb/packages '(ace-jump-mode paredit smex ido-ubiquitous auctex org zenburn-theme magit haml-mode haskell-mode twittering-mode auto-complete yasnippet idle-highlight-mode anything anything-config expand-region minimap ssh-config-mode rainbow-delimiters dired+ bookmark+ dired-details multiple-cursors))
+(setq ddb/packages '(ace-jump-mode paredit smex ido-ubiquitous auctex org zenburn-theme magit haml-mode haskell-mode twittering-mode auto-complete yasnippet idle-highlight-mode anything anything-config expand-region minimap ssh-config-mode rainbow-delimiters dired+ bookmark+ dired-details multiple-cursors less-css-mode))
 
 (ddb/conf/install-packages ddb/packages)
 
@@ -40,6 +40,8 @@
 (ddb/conf/latex)
 (ddb/conf/bibtex)
 (ddb/conf/octave)
+(ddb/conf/less)
+(ddb/conf/shakespearean)
 
 (ddb/conf/multiple-cursors)
 (ddb/conf/ibuffer)
