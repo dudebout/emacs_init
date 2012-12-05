@@ -216,6 +216,10 @@
 (defun ddb/conf/less ()
   (add-to-list 'auto-mode-alist '("\\.less\\'" . less-css-mode)))
 
+(defun ddb/conf/yaml ()
+  (autoload 'yaml-mode "yaml-mode" "YAML major mode" t)
+  (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode)))
+
 (defun ddb/conf/shakespearean ()
   (add-to-list 'auto-mode-alist '("\\.hamlet\\'" . html-mode))
   (add-to-list 'auto-mode-alist '("\\.lucius\\'" . css-mode))
