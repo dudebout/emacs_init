@@ -478,6 +478,10 @@
 (defun ddb/conf/rainbow-delimiters ()
   (global-rainbow-delimiters-mode))
 
+(defun ddb/conf/window-number ()
+  (require 'window-number)
+  (window-number-meta-mode))
+
 (defun ddb/conf/anything ()
   (setq anything-command-map-prefix-key "<f5>")
   (require 'anything-config))
