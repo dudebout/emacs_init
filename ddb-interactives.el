@@ -80,4 +80,9 @@
       (backward-char 3)
     (backward-char 2)))
 
+(defun ddb/toggle-selective-display (&optional column)
+  (interactive "P")
+  (set-selective-display
+   (if selective-display nil (or column 1))))
+
 (provide 'ddb-interactives)
