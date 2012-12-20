@@ -189,8 +189,6 @@
 (defun ddb/conf/latex ()
   (setq TeX-electric-sub-and-superscript t
         TeX-parse-self t
-        TeX-auto-local "auto/"
-        TeX-auto-save t
         TeX-save-query nil
         TeX-force-default-mode t
         TeX-source-correlate-method 'synctex
