@@ -165,7 +165,7 @@
         twittering-icon-mode t))
 
 (defun ddb/conf/elisp ()
-  (require 'paredit)
+  (autoload 'enable-paredit-mode "paredit")
   (autoload 'elisp-slime-nav-mode "elisp-slime-nav")
   (defun ddb/conf/emacs-lisp/hook ()
     (elisp-slime-nav-mode t)
@@ -304,7 +304,7 @@
   (defun ddb/conf/org-reftex ()
     (org-defkey org-mode-map (kbd "C-c [") 'undefined)
     (org-defkey org-mode-map (kbd "C-c ]") 'undefined)
-    (require 'reftex)
+    (autoload 'reftex-citation "reftex")
     (org-defkey org-mode-map (kbd "C-c [") 'reftex-citation)
     ;; using reftex-set-cite-format requires the visited buffer to
     ;; be linked to a file
