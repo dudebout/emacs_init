@@ -166,7 +166,9 @@
 
 (defun ddb/conf/elisp ()
   (require 'paredit)
+  (autoload 'elisp-slime-nav-mode "elisp-slime-nav")
   (defun ddb/conf/emacs-lisp/hook ()
+    (elisp-slime-nav-mode t)
     (enable-paredit-mode))
 
   (add-hook 'emacs-lisp-mode-hook 'ddb/conf/emacs-lisp/hook))
