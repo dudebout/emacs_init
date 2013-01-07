@@ -51,10 +51,11 @@
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c b") 'org-iswitchb)
   (global-set-key (kbd "C-c c") 'org-capture)
-  (global-set-key (kbd "C-c l") 'org-store-link)
-  (global-set-key (kbd "C-c k") 'ddb/kill-current-buffer-and-delete-file)
   (global-set-key (kbd "C-c g") 'gnus)
   (global-set-key (kbd "C-c i") 'magit-status)
+  (global-set-key (kbd "C-c k") 'ddb/kill-current-buffer-and-delete-file)
+  (global-set-key (kbd "C-c l") 'org-store-link)
+  (global-set-key (kbd "C-c m") 'mu4e)
   (global-set-key (kbd "<f6>") 'ddb/insert-math-latex)
   (global-set-key (kbd "<f7>") 'compile)
   (global-set-key (kbd "<f8>") 'menu-bar-mode)
@@ -391,6 +392,7 @@
   (require 'dired+))
 
 (defun ddb/conf/ibuffer ()
+  (require 'gnus)
   (global-set-key (kbd "C-x C-b") 'ibuffer)
 
   (setq ibuffer-saved-filter-groups
