@@ -40,6 +40,7 @@
 (defun ddb/conf/global-set-keys ()
   (winner-mode 1) ; C-c left = undo in window configuration
   (windmove-default-keybindings)
+  (global-set-key (vector 'remap 'goto-line) 'ddb/goto-line-with-feedback)
   (global-set-key (kbd "C-S-<left>") 'shrink-window-horizontally)
   (global-set-key (kbd "C-S-<right>") 'enlarge-window-horizontally)
   (global-set-key (kbd "C-S-<down>") 'shrink-window)
@@ -61,8 +62,10 @@
   (global-set-key (kbd "<f8>") 'menu-bar-mode)
   (global-set-key (kbd "<f10>") 'linum-mode)
   (global-set-key (kbd "<f11>") 'ddb/toggle-selective-display)
+  (global-set-key (kbd "C-x C-r") 'ddb/rename-current-buffer-file)
   (global-set-key (kbd "C-x M-e") 'ddb/eval-and-replace)
   (global-set-key (kbd "C-x M-w") 'ddb/swap-buffers-in-windows)
+  (global-set-key (kbd "C-x M-r") 'ddb/rotate-windows)
   (global-set-key (kbd "C-x M-k") 'ddb/delete-current-buffer-and-delete-file)
   (global-set-key (kbd "C-x M-s") 'ddb/sudo-edit))
 
@@ -88,7 +91,9 @@
         enable-recursive-minibuffers t
         sentence-end-double-space nil
         disabled-command-function nil
-        compilation-read-command nil)
+        compilation-read-command nil
+        global-auto-revert-non-file-buffers t
+        auto-revert-verbose nil)
 
   (setq-default fill-column 80
                 show-trailing-whitespace t
