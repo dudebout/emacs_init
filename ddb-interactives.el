@@ -105,6 +105,7 @@
 (defun ddb/goto-line-with-feedback ()
   "Show line numbers temporarily, while prompting for the line number input"
   (interactive)
+  (require 'linum)
   (if linum-mode
       (call-interactively 'goto-line)
     (unwind-protect
