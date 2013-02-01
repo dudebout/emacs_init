@@ -149,7 +149,8 @@
        ;; when in a label
        (push '("ä" . "a") bibtex-autokey-name-change-strings)
        (push '("ï" . "i") bibtex-autokey-name-change-strings)
-       (push '("ö" . "o") bibtex-autokey-name-change-strings)))
+       (push '("ö" . "o") bibtex-autokey-name-change-strings)
+       (push '("ş" . "s") bibtex-autokey-name-change-strings)))
 
 
   (add-hook 'bibtex-mode-hook 'ddb/conf/bibtex/disable-fill-column))
