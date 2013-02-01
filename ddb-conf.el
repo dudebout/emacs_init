@@ -383,6 +383,22 @@
   (setq dired-listing-switches "-lh"
         dired-dwim-target t)
 
+  (defun dired-back-to-top ()
+    (interactive)
+    (beginning-of-buffer)
+    (next-line 1))
+
+  (defun dired-jump-to-bottom ()
+    (interactive)
+    (end-of-buffer)
+    (next-line -1))
+
+  (define-key dired-mode-map
+    (vector 'remap 'beginning-of-buffer) 'dired-back-to-top)
+  (define-key dired-mode-map
+    (vector 'remap 'end-of-buffer) 'dired-jump-to-bottom)
+
+
   (eval-after-load "dired"
     '(progn
        (define-key dired-mode-map (kbd ".") 'ddb/dired-toggle-show-all)
