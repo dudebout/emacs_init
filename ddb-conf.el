@@ -286,6 +286,7 @@
                         (:endgroup . nil)
                         ("emacs" . ?e)
                         ("haskell" . ?a)
+                        ("website" . ?s)
                         ("contact" . ?c)
                         ("bug" . ?b))
         org-todo-keywords '((sequence "TODO(t)" "WAITING(w@)" "|" "DONE(d)")
