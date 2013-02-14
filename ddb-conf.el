@@ -28,6 +28,7 @@
 (defun ddb/conf/install-packages (package-list)
   "Install packages."
   (setq package-archives '(("elpa" . "http://tromey.com/elpa/")
+                           ("melpa" . "http://melpa.milkbox.net/packages/")
                            ("gnu" . "http://elpa.gnu.org/packages/")
                            ("marmalade" . "http://marmalade-repo.org/packages/")))
   (package-initialize)
@@ -511,5 +512,8 @@
 (defun ddb/conf/anything ()
   (setq anything-command-map-prefix-key "<f5>")
   (require 'anything-config))
+
+(defun ddb/conf/git-gutter ()
+  (global-git-gutter-mode t))
 
 (provide 'ddb-conf)
