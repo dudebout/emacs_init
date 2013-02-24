@@ -189,6 +189,8 @@
     (ddb/conf/prog/hook))
 
   (add-hook 'haskell-mode-hook 'ddb/conf/haskell/hook)
+  (add-hook 'inferior-haskell-mode-hook 'turn-on-ghci-completion)
+  (autoload 'turn-on-ghci-completion "ghci-completion")
 
   (eval-after-load "haskell-mode-map"
     '(define-key haskell-mode-map (kbd "C-;") 'haskell-hoogle)))
