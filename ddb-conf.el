@@ -262,26 +262,26 @@
            (org-agenda-overriding-header "Unscheduled TODO entries: "))
           ("w" tags-todo "@work"))
         org-capture-templates
-        '(("r" "read" entry
-           (file+headline org-default-notes-file "todo capture")
+        `(("r" "read" entry
+           (file+headline org-default-notes-file ,(format "todo capture %s" system-name))
            "* TODO read %?%a\nSCHEDULED: %t")
           ("a" "Appointment" entry
-           (file+headline org-default-notes-file "events capture")
+           (file+headline org-default-notes-file ,(format "events capture %s" system-name))
            "* APPT %?\nSCHEDULED: %t")
           ("d" "Todo today" entry
-           (file+headline org-default-notes-file "todo capture")
+           (file+headline org-default-notes-file ,(format "todo capture %s" system-name))
            "* TODO %?\nSCHEDULED: %t")
           ("w" "Waiting event" entry
-           (file+headline org-default-notes-file "todo capture")
+           (file+headline org-default-notes-file ,(format "todo capture %s" system-name))
            "* WAITING %?\nSCHEDULED: %t")
           ("e" "Event" entry
-           (file+headline org-default-notes-file "events capture")
+           (file+headline org-default-notes-file ,(format "events capture %s" system-name))
            "* %?")
           ("n" "Note" entry
-           (file+headline org-default-notes-file "notes capture")
+           (file+headline org-default-notes-file ,(format "notes capture %s" system-name))
            "* %?")
           ("o" "org-protocol" entry ;; 'w' for 'org-protocol'
-           (file+headline org-default-notes-file "web capture")
+           (file+headline org-default-notes-file ,(format "web capture %s" system-name))
            "* %^{Title}\n%i%c\n%u\n%i"))
         org-tag-alist '((:startgroup . nil)
                         ("@work" . ?w)
