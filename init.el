@@ -35,6 +35,7 @@
 
 (ddb/conf/prog)
 (ddb/conf/text)
+(ddb/conf/comint)
 (ddb/conf/elisp)
 (ddb/conf/haskell)
 (ddb/conf/python)

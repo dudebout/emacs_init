@@ -518,4 +518,9 @@
 (defun ddb/conf/git-gutter ()
   (global-git-gutter-mode t))
 
+(defun ddb/conf/comint ()
+  (defun ddb/conf/comint/disable-whitespace-mode ()
+    (setq show-trailing-whitespace nil))
+  (add-hook 'term-mode-hook 'ddb/conf/comint/disable-whitespace-mode))
+
 (provide 'ddb-conf)
