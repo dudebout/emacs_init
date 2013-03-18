@@ -64,6 +64,7 @@
   (global-set-key (kbd "<f10>") 'linum-mode)
   (global-set-key (kbd "<f11>") 'ddb/toggle-selective-display)
   (global-set-key (kbd "C-x C-r") 'ddb/rename-current-buffer-file)
+  (global-set-key (kbd "C-x F") 'ddb/find-file-as-root)
   (global-set-key (kbd "C-x M-e") 'ddb/eval-and-replace)
   (global-set-key (kbd "C-x M-w") 'ddb/swap-buffers-in-windows)
   (global-set-key (kbd "C-x M-r") 'ddb/rotate-windows)
