@@ -512,9 +512,12 @@
   (require 'window-number)
   (window-number-meta-mode))
 
-(defun ddb/conf/anything ()
-  (setq anything-command-map-prefix-key "<f5>")
-  (require 'anything-config))
+(defun ddb/conf/helm ()
+  (global-set-key (kbd "C-c f") 'helm-find-files)
+  (global-set-key (kbd "<f5>") 'helm-mini))
+
+(defun ddb/conf/projectile ()
+  (projectile-global-mode))
 
 (defun ddb/conf/git-gutter ()
   (global-git-gutter-mode t))
