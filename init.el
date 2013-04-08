@@ -22,7 +22,8 @@
 
 (ddb/conf/uniquify)
 (ddb/conf/saveplace)
-(ddb/conf/anything)
+(ddb/conf/helm)
+(ddb/conf/projectile)
 (ddb/conf/smex)
 (ddb/conf/ffap-latex)
 (ddb/conf/auto-complete)
