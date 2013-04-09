@@ -63,10 +63,10 @@
   (global-set-key (kbd "<f8>") 'menu-bar-mode)
   (global-set-key (kbd "<f10>") 'linum-mode)
   (global-set-key (kbd "<f11>") 'ddb/toggle-selective-display)
-  (global-set-key (kbd "C-x C-r") 'ddb/rename-current-buffer-file)
+  (global-set-key (kbd "C-x M-w") 'ddb/rename-current-buffer-file)
   (global-set-key (kbd "C-x F") 'ddb/find-file-as-root)
   (global-set-key (kbd "C-x M-e") 'ddb/eval-and-replace)
-  (global-set-key (kbd "C-x M-w") 'ddb/swap-buffers-in-windows)
+  (global-set-key (kbd "C-x M-b") 'ddb/swap-buffers-in-windows)
   (global-set-key (kbd "C-x M-r") 'ddb/rotate-windows)
   (global-set-key (kbd "C-x M-k") 'ddb/delete-current-buffer-and-delete-file)
   (global-set-key (kbd "C-x M-s") 'ddb/sudo-edit))
@@ -183,6 +183,7 @@
   (defun ddb/conf/emacs-lisp/hook ()
     (elisp-slime-nav-mode t)
     (eldoc-mode)
+    (redshank-mode 1)
     (enable-paredit-mode))
 
   (add-hook 'emacs-lisp-mode-hook 'ddb/conf/emacs-lisp/hook))
@@ -519,7 +520,8 @@
 
 (defun ddb/conf/helm ()
   (global-set-key (kbd "C-c f") 'helm-find-files)
-  (global-set-key (kbd "<f5>") 'helm-mini))
+  (global-set-key (kbd "<f5>") 'helm-mini)
+  (helm-descbinds-mode))
 
 (defun ddb/conf/projectile ()
   (projectile-global-mode))
