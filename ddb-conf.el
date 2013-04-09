@@ -478,15 +478,14 @@
        ;; only rare need for ""
        (ffap-locate-file name '(".cls" ".sty" ".tex" ".bib" ".tikz" "") ffap-tex-path))))
 
+(defun ddb/conf/yasnippet ()
+  (require 'yasnippet)
+  (yas-global-mode 1))
+
 (defun ddb/conf/auto-complete ()
   (require 'auto-complete-config)
   (ac-config-default)
   (ac-flyspell-workaround))
-
-(defun ddb/conf/yasnippet ()
-  (require 'yasnippet)
-  (yas/load-directory yas/root-directory)
-  (yas/global-mode))
 
 (defun ddb/conf/ido ()
   (ido-mode t)
