@@ -176,6 +176,10 @@
 (defun ddb/conf/elisp ()
   (autoload 'enable-paredit-mode "paredit")
   (autoload 'elisp-slime-nav-mode "elisp-slime-nav")
+  (require 'highlight-cl)
+  (add-hook 'emacs-lisp-mode-hook 'highlight-cl-add-font-lock-keywords)
+  (add-hook 'lisp-interaction-mode-hook 'highlight-cl-add-font-lock-keywords)
+
   (defun ddb/conf/emacs-lisp/hook ()
     (elisp-slime-nav-mode t)
     (eldoc-mode)
