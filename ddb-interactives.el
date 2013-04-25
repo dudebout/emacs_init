@@ -149,4 +149,11 @@ user."
              (set-window-start w2 s1)
              (setq i (1+ i)))))))
 
+(defun ddb/beginning-of-line-or-indentation ()
+  "Move to beginning of line, or indentation"
+  (interactive)
+  (if (bolp)
+      (back-to-indentation)
+    (beginning-of-line)))
+
 (provide 'ddb-interactives)

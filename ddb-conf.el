@@ -50,6 +50,9 @@
   (global-set-key (kbd "M-/") 'hippie-expand)
   (global-set-key (kbd "C-=") 'ace-jump-mode)
   (global-set-key (kbd "C-'") 'er/expand-region)
+  (global-set-key (kbd "M-m") 'jump-char-forward)
+  (global-set-key (kbd "M-S-m") 'jump-char-backward)
+  (global-set-key (kbd "C-a") 'ddb/beginning-of-line-or-indentation)
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c b") 'org-iswitchb)
   (global-set-key (kbd "C-c c") 'org-capture)
@@ -534,3 +537,4 @@
   (add-hook 'term-mode-hook 'ddb/conf/comint/disable-whitespace-mode))
 
 (provide 'ddb-conf)
+
