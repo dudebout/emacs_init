@@ -537,4 +537,3 @@
   (add-hook 'term-mode-hook 'ddb/conf/comint/disable-whitespace-mode))
 
 (provide 'ddb-conf)
-
