@@ -156,4 +156,28 @@ user."
       (back-to-indentation)
     (beginning-of-line)))
 
+(defun ddb/start-or-switch-to (function buffer-name)
+  "Invoke FUNCTION if there is no buffer with BUFFER-NAME.
+Otherwise switch to the buffer named BUFFER-NAME.  Don't clobber
+the current buffer."
+  (if (not (get-buffer buffer-name))
+      (progn
+        (split-window-sensibly (selected-window))
+        (other-window 1)
+        (funcall function))
+    (switch-to-buffer-other-window buffer-name)))
+
+(defun ddb/visit-term-buffer ()
+  "Create or visit a terminal buffer."
+  (interactive)
+  (ddb/start-or-switch-to (lambda ()
+                         (ansi-term (getenv "SHELL")))
+                      "*ansi-term*"))
+
+(defun ddb/visit-ielm ()
+  "Switch to default `ielm' buffer.
+Start `ielm' if it's not already running."
+  (interactive)
+  (ddb/start-or-switch-to 'ielm "*ielm*"))
+
 (provide 'ddb-interactives)
