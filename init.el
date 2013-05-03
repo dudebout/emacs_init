@@ -14,7 +14,8 @@
 
 (load-theme 'zenburn)
 
-(ddd/conf/general-behavior)
+(ddb/conf/general-behavior)
+(ddb/conf/proced)
 (ddb/conf/copy-cut-line-at-point)
 (ddb/conf/ask-before-suspend)
 (ddb/conf/global-set-keys)

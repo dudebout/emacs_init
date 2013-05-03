@@ -74,7 +74,7 @@
   (global-set-key (kbd "C-x M-k") 'ddb/delete-current-buffer-and-delete-file)
   (global-set-key (kbd "C-x M-s") 'ddb/sudo-edit))
 
-(defun ddd/conf/general-behavior ()
+(defun ddb/conf/general-behavior ()
   (setq inhibit-startup-screen t
         initial-scratch-message nil
         x-select-enable-clipboard t
@@ -125,6 +125,15 @@
   (add-hook 'before-save-hook 'whitespace-cleanup)
   (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p))
 
+(defun ddb/conf/proced ()
+  (setq proced-auto-update-interval 2)
+
+  (defun ddb/conf/proced/hook ()
+    (setq proced-auto-update-flag t)
+    (visual-line-mode -1))
+
+  (add-hook 'proced-mode-hook 'ddb/conf/proced/hook))
+
 (defun ddb/conf/bibtex ()
   (setq bibtex-maintain-sorted-entries t
         bibtex-include-OPTkey nil
@@ -145,7 +154,7 @@
         bibtex-autokey-titleword-separator ""
         bibtex-autokey-year-title-separator "")
 
-  (defun ddb/conf/bibtex/disable-fill-column ()
+  (defun ddb/conf/bibtex/hook ()
     (setq fill-column 1000))
 
   (eval-after-load "bibtex"
@@ -158,7 +167,7 @@
        (push '("ş" . "s") bibtex-autokey-name-change-strings)))
 
 
-  (add-hook 'bibtex-mode-hook 'ddb/conf/bibtex/disable-fill-column))
+  (add-hook 'bibtex-mode-hook 'ddb/conf/bibtex/hook))
 
 (defun ddb/conf/magit ()
   (setq magit-set-upstream-on-push t
