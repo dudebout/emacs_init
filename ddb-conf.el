@@ -170,7 +170,7 @@
   (add-hook 'bibtex-mode-hook 'ddb/conf/bibtex/hook))
 
 (defun ddb/conf/magit ()
-  (setq magit-set-upstream-on-push t
+  (setq magit-set-upstream-on-push 'askifnotset
         magit-save-some-buffers 'dontask
         magit-create-branch-behaviour 'at-point
         magit-log-auto-more t
