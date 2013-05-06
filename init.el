@@ -8,7 +8,7 @@
 (require 'ddb-interactives)
 (require 'ddb-conf)
 
-(setq ddb/packages '(ace-jump-mode paredit smex ido-ubiquitous auctex org zenburn-theme haml-mode haskell-mode twittering-mode auto-complete yasnippet idle-highlight-mode expand-region minimap ssh-config-mode rainbow-delimiters rainbow-mode dired+ bookmark+ dired-details multiple-cursors less-css-mode yaml-mode window-number elisp-slime-nav git-gutter ghci-completion git-commit-mode gitconfig-mode gitignore-mode projectile helm highlight-cl redshank helm-descbinds jump-char elpy))
+(setq ddb/packages '(ace-jump-mode paredit smex ido-ubiquitous auctex org zenburn-theme haml-mode haskell-mode twittering-mode auto-complete yasnippet idle-highlight-mode expand-region minimap ssh-config-mode rainbow-delimiters rainbow-mode dired+ bookmark+ dired-details multiple-cursors less-css-mode yaml-mode window-number elisp-slime-nav git-gutter ghci-completion git-commit-mode gitconfig-mode gitignore-mode projectile helm highlight-cl redshank helm-descbinds jump-char elpy lein nrepl ac-nrepl lexbind-mode))
 
 (ddb/conf/install-packages ddb/packages)
 
@@ -39,6 +39,7 @@
 (ddb/conf/text)
 (ddb/conf/comint)
 (ddb/conf/elisp)
+(ddb/conf/lexbind)
 (ddb/conf/haskell)
 (ddb/conf/python)
 (ddb/conf/latex)

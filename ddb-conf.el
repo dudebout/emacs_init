@@ -200,6 +200,11 @@
 
   (add-hook 'emacs-lisp-mode-hook 'ddb/conf/emacs-lisp/hook))
 
+(defun ddb/conf/lexbind ()
+  (defun ddb/conf/lexbind/hook ()
+    (lexbind-mode))
+  (add-hook 'emacs-lisp-mode-hook 'ddb/conf/lexbind/hook))
+
 (defun ddb/conf/haskell ()
   (defun ddb/conf/haskell/hook ()
     (turn-on-haskell-doc-mode)
