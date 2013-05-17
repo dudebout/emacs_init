@@ -347,6 +347,11 @@
 
   (add-hook 'org-mode-hook 'ddb/conf/org-reftex)
 
+  (defun ddb/conf/org-agenda-hook ()
+    (hl-line-mode))
+
+  (add-hook 'org-agenda-mode-hook 'ddb/conf/org-agenda-hook)
+
   (eval-after-load "org"
     '(progn
        (require 'org-latex)
