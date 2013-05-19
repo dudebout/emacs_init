@@ -116,7 +116,7 @@
   (show-paren-mode 1)
   (global-auto-revert-mode t)
   (global-visual-line-mode)
-  (display-battery-mode)
+  (global-hl-line-mode)
 
   (defalias 'yes-or-no-p 'y-or-n-p)
   (defalias 'auto-tail-revert-mode 'tail-mode)
@@ -347,11 +347,6 @@
 
   (add-hook 'org-mode-hook 'ddb/conf/org-reftex)
 
-  (defun ddb/conf/org-agenda-hook ()
-    (hl-line-mode))
-
-  (add-hook 'org-agenda-mode-hook 'ddb/conf/org-agenda-hook)
-
   (eval-after-load "org"
     '(progn
        (require 'org-latex)
@@ -373,7 +368,10 @@
   (setq gnus-always-read-dribble-file t
         gnus-message-archive-method nil)
 
-  (add-hook 'gnus-group-mode-hook 'gnus-topic-mode))
+  (defun ddb/conf/gnus-group-hook ()
+    (gnus-topic-mode))
+
+  (add-hook 'gnus-group-mode-hook 'ddb/conf/gnus-group-hook))
 
 (defun ddb/conf/smex ()
   (require 'smex)
@@ -401,8 +399,7 @@
     (idle-highlight-mode t)
     (flyspell-prog-mode)
     (set (make-local-variable 'comment-auto-fill-only-comments) t)
-    (auto-fill-mode t)
-    (hl-line-mode t))
+    (auto-fill-mode t))
   (add-hook 'prog-mode-hook 'ddb/conf/prog/hook))
 
 (defun ddb/conf/text ()
