@@ -204,6 +204,11 @@
     (lexbind-mode))
   (add-hook 'emacs-lisp-mode-hook 'ddb/conf/lexbind/hook))
 
+(defun ddb/conf/clojure ()
+  (defun ddb/conf/clojure/hook ()
+    (paredit-mode))
+  (add-hook 'clojure-mode-hook 'ddb/conf/clojure/hook))
+
 (defun ddb/conf/haskell ()
   (defun ddb/conf/haskell/hook ()
     (subword-mode)

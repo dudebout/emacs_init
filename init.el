@@ -40,6 +40,7 @@
 (ddb/conf/comint)
 (ddb/conf/elisp)
 (ddb/conf/lexbind)
+(ddb/conf/clojure)
 (ddb/conf/haskell)
 (ddb/conf/python)
 (ddb/conf/latex)
