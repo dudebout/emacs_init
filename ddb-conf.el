@@ -206,6 +206,7 @@
 
 (defun ddb/conf/haskell ()
   (defun ddb/conf/haskell/hook ()
+    (subword-mode)
     (turn-on-haskell-doc-mode)
     (turn-on-haskell-indent)
     ;; temporary fix until haskell-mode is derived from prog-mode
