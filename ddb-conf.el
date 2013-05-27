@@ -61,7 +61,6 @@
   (global-set-key (kbd "C-c k") 'ddb/kill-current-buffer-and-delete-file)
   (global-set-key (kbd "C-c l") 'org-store-link)
   (global-set-key (kbd "C-c m") 'mu4e)
-  (global-set-key (kbd "<f6>") 'ddb/insert-math-latex)
   (global-set-key (kbd "<f7>") 'compile)
   (global-set-key (kbd "<f8>") 'menu-bar-mode)
   (global-set-key (kbd "<f10>") 'linum-mode)
@@ -504,6 +503,7 @@
 (defun ddb/conf/auto-complete ()
   (require 'auto-complete-config)
   (ac-config-default)
+  (setq-default ac-sources '(ac-source-abbrev ac-source-dictionary ac-source-words-in-same-mode-buffers ac-source-yasnippet))
   (ac-flyspell-workaround))
 
 (defun ddb/conf/ido ()

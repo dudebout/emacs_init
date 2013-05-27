@@ -1,0 +1,6 @@
+# key: begin
+# expand-env: ((yas-indent-line 'fixed))
+# --
+\begin{$1}
+$0
+\end{$1}

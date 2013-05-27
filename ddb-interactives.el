@@ -97,16 +97,6 @@ user."
   (org-open-file (or (ffap-guesser)
                      (error "No filename at point")) arg))
 
-(defun ddb/insert-math-latex (&optional displayed)
-  "Insert \(\) (\[\] if called with prefix) at point."
-  (interactive "P*")
-  (if displayed
-      (insert "\n\\[\n\n\\]")
-    (insert "\\(\\)"))
-  (if displayed
-      (backward-char 3)
-    (backward-char 2)))
-
 (defun ddb/toggle-selective-display (&optional column)
   (interactive "P")
   (set-selective-display

@@ -1,0 +1,3 @@
+# binding: <f6>
+# --
+`(if yas--prefix "\\[\n" "\\(")`$0`(if yas--prefix "\n\\]" "\\)")`
