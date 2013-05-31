@@ -283,6 +283,8 @@
         org-agenda-start-on-weekday nil
         org-agenda-window-setup 'current-window
         org-agenda-restore-windows-after-quit t
+        org-special-ctrl-a/e t
+        org-special-ctrl-k t
         org-agenda-custom-commands
         '(("u" alltodo ""
            ((org-agenda-skip-function
