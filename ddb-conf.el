@@ -187,15 +187,16 @@
 (defun ddb/conf/elisp ()
   (autoload 'enable-paredit-mode "paredit")
   (autoload 'elisp-slime-nav-mode "elisp-slime-nav")
-  (require 'highlight-cl)
-  (add-hook 'emacs-lisp-mode-hook 'highlight-cl-add-font-lock-keywords)
+  (autoload 'highlight-cl-add-font-lock-keywords "highlight-cl")
+
   (add-hook 'lisp-interaction-mode-hook 'highlight-cl-add-font-lock-keywords)
 
   (defun ddb/conf/emacs-lisp/hook ()
     (elisp-slime-nav-mode t)
     (eldoc-mode)
     (redshank-mode 1)
-    (enable-paredit-mode))
+    (enable-paredit-mode)
+    (highlight-cl-add-font-lock-keywords))
 
   (add-hook 'emacs-lisp-mode-hook 'ddb/conf/emacs-lisp/hook))
 
@@ -415,8 +416,6 @@
   (add-hook 'text-mode-hook 'ddb/conf/text/hook))
 
 (defun ddb/conf/dired ()
-  ;; needed to have 'C-x C-j' bound properly
-  (require 'dired)
   (setq dired-listing-switches "-lh"
         dired-dwim-target t)
 
@@ -430,25 +429,24 @@
     (end-of-buffer)
     (next-line -1))
 
-  (define-key dired-mode-map
-    (vector 'remap 'beginning-of-buffer) 'dired-back-to-top)
-  (define-key dired-mode-map
-    (vector 'remap 'end-of-buffer) 'dired-jump-to-bottom)
-
-
   (eval-after-load "dired"
     '(progn
+       (define-key dired-mode-map (vector 'remap 'beginning-of-buffer) 'dired-back-to-top)
+       (define-key dired-mode-map (vector 'remap 'end-of-buffer) 'dired-jump-to-bottom)
        (define-key dired-mode-map (kbd ".") 'ddb/dired-toggle-show-all)
        (define-key dired-mode-map (kbd "C-c C-o") 'ddb/dired-open-file))))
 
 (defun ddb/conf/dired-details ()
-  (require 'dired-details)
-  (setq dired-details-hidden-string "[+] ")
-  (dired-details-install)
-  (define-key dired-mode-map "," 'dired-details-toggle))
+  (eval-after-load "dired"
+    '(progn
+       (require 'dired-details)
+       (setq dired-details-hidden-string "[+] ")
+       (dired-details-install)
+       (define-key dired-mode-map "," 'dired-details-toggle))))
 
 (defun ddb/conf/dired+ ()
-  (require 'dired+))
+  (eval-after-load "dired"
+    '(require 'dired+)))
 
 (defun ddb/conf/ibuffer ()
   (require 'gnus)
