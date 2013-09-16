@@ -65,6 +65,7 @@
   (global-set-key (kbd "<f8>") 'menu-bar-mode)
   (global-set-key (kbd "<f10>") 'linum-mode)
   (global-set-key (kbd "<f11>") 'ddb/toggle-selective-display)
+  (global-set-key (kbd "C-x C-b") 'ibuffer)
   (global-set-key (kbd "C-x M-w") 'ddb/rename-current-buffer-file)
   (global-set-key (kbd "C-x F") 'ddb/find-file-as-root)
   (global-set-key (kbd "C-x M-e") 'ddb/eval-and-replace)
@@ -268,8 +269,6 @@
 
 (defun ddb/conf/org ()
   (require 'org-protocol)
-  (org-clock-persistence-insinuate)
-
   (setq org-startup-indented t
         org-use-speed-commands t
         org-src-fontify-natively t
@@ -360,6 +359,7 @@
        (require 'org-latex)
        (require 'org-special-blocks)
        (require 'ddb-org-bib)
+       (org-clock-persistence-insinuate)
        (add-to-list 'org-export-latex-classes
                     '("ieeecdc"
                       "\\documentclass{ieeecdc}
@@ -449,9 +449,6 @@
     '(require 'dired+)))
 
 (defun ddb/conf/ibuffer ()
-  (require 'gnus)
-  (global-set-key (kbd "C-x C-b") 'ibuffer)
-
   (setq ibuffer-saved-filter-groups
         '(("default"
            ("git:ddb"
