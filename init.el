@@ -10,7 +10,7 @@
 
 (load-theme 'zenburn)
 
-(setq ddb/packages '(ace-jump-mode paredit smex ido-ubiquitous auctex org haml-mode haskell-mode twittering-mode auto-complete idle-highlight-mode expand-region minimap ssh-config-mode rainbow-delimiters rainbow-mode dired+ bookmark+ dired-details multiple-cursors less-css-mode yaml-mode window-number elisp-slime-nav git-gutter ghci-completion git-commit-mode gitconfig-mode gitignore-mode projectile helm highlight-cl redshank helm-descbinds jump-char elpy lein nrepl ac-nrepl lexbind-mode diminish))
+(setq ddb/packages '(ace-jump-mode paredit smex ido-ubiquitous auctex org haml-mode haskell-mode twittering-mode auto-complete idle-highlight-mode expand-region minimap ssh-config-mode rainbow-delimiters rainbow-mode dired+ bookmark+ dired-details multiple-cursors less-css-mode yaml-mode window-number elisp-slime-nav git-gutter ghci-completion git-commit-mode gitconfig-mode gitignore-mode projectile helm highlight-cl redshank helm-descbinds jump-char elpy lein nrepl ac-nrepl lexbind-mode diminish esup))
 
 ;; for ido-ubiquitous
 (defvar ido-cur-item nil)
