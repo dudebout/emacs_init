@@ -61,9 +61,45 @@
 (ddb/conf/dired-details)
 (ddb/conf/dired+)
 (ddb/conf/gnus)
-(ddb/conf/magit)
+;(ddb/conf/magit)
 (ddb/conf/org)
 (ddb/conf/twittering)
 (ddb/conf/git-gutter)
 
+
+
+(add-to-list 'load-path "~/external/use-package/")
+(require 'use-package)
+
+;; (use-package magit
+;;   :bind ddb/bind/magit
+;;   :config ddb/conf/magit)
+
+;; (defmacro ddb/use-package (package-name)
+;;   `(let ((ddb/bind (eval (intern (concat "ddb/bind/" (symbol-name (quote ,package-name)))))))
+;;        (use-package ,package-name
+;;          :bind ddb/bind)))
+
+;; (defmacro ddb/use-package (package-name)
+;;   (let ((ddb/bind (intern (format "ddb/bind/%s" package-name))))
+;;     (cl-letf ((ddb/config (intern (format "ddb/conf/%s" package-name))))
+;;       `(use-package ,package-name
+;;          :bind ,ddb/bind
+;;          :config ,ddb/config))))
+
+(defmacro ddb/use-package (package-name &rest args)
+  (cl-letf ((ddb/config (intern (format "ddb/conf/%s" package-name))))
+    (let* ((ddb/bind (intern (format "ddb/bind/%s" package-name)))
+           (ddb/config/arg (when (fboundp ddb/config)
+                            `(:config ,ddb/config)))
+           (ddb/bind/arg (when (boundp ddb/bind)
+                            `(:bind ,ddb/bind))))
+      `(use-package ,package-name
+         ,@ddb/bind/arg
+         ,@ddb/config/arg
+         ,@args))))
+
+;; (defmacro auto-require (package-name)
 (require 'ddb-temp)
+
+(ddb/use-package magit)
