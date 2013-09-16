@@ -57,7 +57,6 @@
   (global-set-key (kbd "C-c b") 'org-iswitchb)
   (global-set-key (kbd "C-c c") 'org-capture)
   (global-set-key (kbd "C-c g") 'gnus)
-;  (global-set-key (kbd "C-c i") 'magit-status)
   (setq ddb/bind/magit '("C-c i" . magit-status))
   (global-set-key (kbd "C-c k") 'ddb/kill-current-buffer-and-delete-file)
   (global-set-key (kbd "C-c l") 'org-store-link)
@@ -188,16 +187,16 @@
 (defun ddb/conf/elisp ()
   (autoload 'enable-paredit-mode "paredit")
   (autoload 'elisp-slime-nav-mode "elisp-slime-nav")
-  (autoload 'highlight-cl-add-font-lock-keywords "highlight-cl")
+  ;; (autoload 'highlight-cl-add-font-lock-keywords "highlight-cl")
 
-  (add-hook 'lisp-interaction-mode-hook 'highlight-cl-add-font-lock-keywords)
+  ;; (add-hook 'lisp-interaction-mode-hook 'highlight-cl-add-font-lock-keywords)
 
   (defun ddb/conf/emacs-lisp/hook ()
     (elisp-slime-nav-mode t)
     (eldoc-mode)
     (redshank-mode 1)
-    (enable-paredit-mode)
-    (highlight-cl-add-font-lock-keywords))
+    (enable-paredit-mode))
+    ;; (highlight-cl-add-font-lock-keywords))
 
   (add-hook 'emacs-lisp-mode-hook 'ddb/conf/emacs-lisp/hook))
 

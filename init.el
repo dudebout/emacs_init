@@ -61,16 +61,14 @@
 (ddb/conf/dired-details)
 (ddb/conf/dired+)
 (ddb/conf/gnus)
-;(ddb/conf/magit)
+
 (ddb/conf/org)
 (ddb/conf/twittering)
 (ddb/conf/git-gutter)
 
+(require 'ddb-temp)
 
-
-(add-to-list 'load-path "~/external/use-package/")
-(require 'use-package)
-
+;(ddb/conf/magit)
 ;; (use-package magit
 ;;   :bind ddb/bind/magit
 ;;   :config ddb/conf/magit)
@@ -87,6 +85,9 @@
 ;;          :bind ,ddb/bind
 ;;          :config ,ddb/config))))
 
+(add-to-list 'load-path "~/external/use-package/")
+(require 'use-package)
+
 (defmacro ddb/use-package (package-name &rest args)
   (cl-letf ((ddb/config (intern (format "ddb/conf/%s" package-name))))
     (let* ((ddb/bind (intern (format "ddb/bind/%s" package-name)))
@@ -99,7 +100,10 @@
          ,@ddb/config/arg
          ,@args))))
 
-;; (defmacro auto-require (package-name)
-(require 'ddb-temp)
+(defmacro jit-require (package-symbol &rest args)
+  (let ((name (intern (format "%s" (cadr package-symbol)))))
+    `(ddb/use-package ,name  ,@args)))
 
-(ddb/use-package magit)
+
+(jit-require 'magit
+             :defer nil)
