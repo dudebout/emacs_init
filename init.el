@@ -82,6 +82,7 @@
 (add-to-list 'load-path "~/external/use-package/")
 (require 'use-package)
 
+; Add a debug statement for explicit statement of what is loaded exactly
 (defmacro ddb/use-package (package-name &rest args)
   (cl-letf ((ddb/config (intern (format "ddb/conf/%s" package-name))))
     (let* ((ddb/bind (intern (format "ddb/bind/%s" package-name)))
@@ -98,10 +99,16 @@
   (let ((name (intern (format "%s" (cadr package-symbol)))))
     `(ddb/use-package ,name  ,@args)))
 
-(defvar ido-cur-item)
-(defvar ido-default-item)
-(defvar ido-cur-list)
-(defvar predicate)
-(defvar inherit-input-method)
-(jit-require 'ido-ubiquitous)
-(jit-require 'magit)
+; Add an error message if package not found
+(defmacro soft-jit-require (package-symbol &rest args)
+  (when (locate-library (format "%s" (cadr package-symbol)))
+    `(jit-require ,package-symbol ,@args)))
+
+(soft-jit-require 'magit)
+
+(defvar ido-cur-item nil)
+(defvar ido-default-item nil)
+(defvar ido-cur-list nil)
+(defvar predicate nil)
+(defvar inherit-input-method nil)
+(soft-jit-require 'ido-ubiquitous)
