@@ -169,13 +169,14 @@
 
   (add-hook 'bibtex-mode-hook 'ddb/conf/bibtex/hook))
 
-(defun ddb/conf/magit ()
+(defun ddb/config/magit ()
   (setq magit-set-upstream-on-push 'askifnotset
         magit-save-some-buffers 'dontask
         magit-create-branch-behaviour 'at-point
         magit-log-auto-more t
         magit-process-popup-time 5
         magit-revert-item-confirm nil
+        magit-rewrite-inclusive nil
         magit-default-tracking-name-function 'magit-default-tracking-name-branch-only
         magit-status-buffer-switch-function 'switch-to-buffer)
 
@@ -519,7 +520,7 @@
         ido-use-filename-at-point 'guess
         ido-use-url-at-point t))
 
-(defun ddb/conf/ido-ubiquitous ()
+(defun ddb/config/ido-ubiquitous ()
   (ido-ubiquitous-mode t))
 
 (defun ddb/conf/changelog ()

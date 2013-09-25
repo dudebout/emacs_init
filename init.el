@@ -84,7 +84,7 @@
 
 ; Add a debug statement for explicit statement of what is loaded exactly
 (defmacro ddb/use-package (package-name &rest args)
-  (cl-letf ((ddb/config (intern (format "ddb/conf/%s" package-name))))
+  (cl-letf ((ddb/config (intern (format "ddb/config/%s" package-name))))
     (let* ((ddb/bind (intern (format "ddb/bind/%s" package-name)))
            (ddb/config/arg (when (fboundp ddb/config)
                             `(:config ,ddb/config)))
@@ -104,7 +104,7 @@
   (when (locate-library (format "%s" (cadr package-symbol)))
     `(jit-require ,package-symbol ,@args)))
 
-(soft-jit-require 'magit)
+
 
 (defvar ido-cur-item nil)
 (defvar ido-default-item nil)
@@ -112,3 +112,4 @@
 (defvar predicate nil)
 (defvar inherit-input-method nil)
 (soft-jit-require 'ido-ubiquitous)
+(soft-jit-require 'magit)
