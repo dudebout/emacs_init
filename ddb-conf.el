@@ -60,6 +60,8 @@
 
 (setq ddb/bind/ace-jump-mode '("C-." . ace-jump-mode)
       ddb/bind/expand-region '("C-'" . ex/expand-region)
+      ddb/bind/helm-files '("C-c f" . helm-find-files)
+      ddb/bind/helm-misc '("<f5>" . helm-mini)
       ddb/bind/magit '("C-c i" . magit-status)
       ddb/bind/smex '(("M-x" . smex)
                       ("M-X" . smex-major-mode-commands)
@@ -170,7 +172,7 @@
 
   (setq-default diff-auto-refine-mode nil))
 
-(defun ddb/conf/twittering ()
+(defun ddb/config/twittering ()
   (setq twittering-use-master-password t
         twittering-icon-mode t))
 
@@ -520,19 +522,16 @@
 (defun ddb/conf/rainbow-delimiters ()
   (global-rainbow-delimiters-mode))
 
-(defun ddb/conf/window-number ()
-  (require 'window-number)
+(defun ddb/init/window-number ()
   (window-number-meta-mode))
 
-(defun ddb/conf/helm ()
-  (global-set-key (kbd "C-c f") 'helm-find-files)
-  (global-set-key (kbd "<f5>") 'helm-mini)
+(defun ddb/init/helm-descbinds ()
   (helm-descbinds-mode))
 
-(defun ddb/conf/projectile ()
+(defun ddb/init/projectile ()
   (projectile-global-mode))
 
-(defun ddb/conf/git-gutter ()
+(defun ddb/init/git-gutter ()
   (global-git-gutter-mode t))
 
 (defun ddb/conf/comint ()

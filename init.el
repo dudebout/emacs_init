@@ -25,15 +25,11 @@
 (ddb/conf/uniquify)
 (ddb/conf/saveplace)
 
-(ddb/conf/helm)
-(ddb/conf/projectile)
-(ddb/conf/ffap-latex)
 (ddb/conf/yasnippet)
 (ddb/conf/auto-complete)
 (ddb/conf/ido)
 (ddb/conf/changelog)
 (ddb/conf/rainbow-delimiters)
-(ddb/conf/window-number)
 
 (ddb/conf/prog)
 (ddb/conf/text)
@@ -57,8 +53,6 @@
 (ddb/conf/gnus)
 
 (ddb/conf/org)
-(ddb/conf/twittering)
-(ddb/conf/git-gutter)
 
 (require 'ddb-temp)
 
@@ -67,25 +61,24 @@
 
 ; Add a debug statement for explicit statement of what is loaded exactly
 (defmacro ddb/use-package (package-name &rest args)
-  (cl-letf ((ddb/config (intern (format "ddb/config/%s" package-name))))
+  (cl-letf ((ddb/config (intern (format "ddb/config/%s" package-name)))
+            (ddb/init (intern (format "ddb/init/%s" package-name))))
     (let* ((ddb/bind (intern (format "ddb/bind/%s" package-name)))
+           (ddb/init/arg (when (fboundp ddb/init)
+                            `(:init (,ddb/init))))
            (ddb/config/arg (when (fboundp ddb/config)
                             `(:config (,ddb/config))))
            (ddb/bind/arg (when (boundp ddb/bind)
                             `(:bind ,ddb/bind))))
       `(use-package ,package-name
          ,@ddb/bind/arg
+         ,@ddb/init/arg
          ,@ddb/config/arg
          ,@args))))
 
-(defmacro jit-require (package-symbol &rest args)
+(defmacro uses (package-symbol &rest args)
   (let ((name (intern (format "%s" (cadr package-symbol)))))
     `(ddb/use-package ,name  ,@args)))
-
-; Add an error message if package not found
-(defmacro soft-jit-require (package-symbol &rest args)
-  (when (locate-library (format "%s" (cadr package-symbol)))
-    `(jit-require ,package-symbol ,@args)))
 
 (defvar ido-cur-item nil)
 (defvar ido-default-item nil)
@@ -93,9 +86,19 @@
 (defvar predicate nil)
 (defvar inherit-input-method nil)
 
-(soft-jit-require 'ace-jump-mode)
-(soft-jit-require 'bibtex :defer t)
-(soft-jit-require 'expand-region)
-(soft-jit-require 'ido-ubiquitous)
-(soft-jit-require 'magit)
-(soft-jit-require 'smex :defer nil)
+(uses 'ace-jump-mode)
+(uses 'bibtex :defer t)
+(uses 'expand-region)
+(uses 'helm-files)
+(uses 'helm-misc)
+(uses 'helm-descbinds)
+(uses 'ido-ubiquitous)
+(uses 'magit)
+(uses 'projectile)
+(uses 'smex)
+(uses 'twittering)
+(uses 'git-gutter)
+(uses 'window-number)
+(uses 'toto)
+
+(ddb/conf/ffap-latex)
