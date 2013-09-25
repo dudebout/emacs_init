@@ -1,7 +1,7 @@
 Emacs configuration:
 ====================
 
-The main configuration files are:
+The main files are:
 
 + `init.el`: code to install new packages at startup and calls to functions defined in ddb-conf.el
 + `ddb-conf.el`: actual configuration code organized by modes

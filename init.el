@@ -15,12 +15,12 @@
 (ddb/conf/install-packages ddb/packages)
 
 (ddb/conf/general-behavior)
-(ddb/conf/proced)
 (ddb/conf/copy-cut-line-at-point)
 (ddb/conf/ask-before-suspend)
 (ddb/conf/global-set-keys)
 (ddb/conf/external-programs)
 
+(ddb/conf/proced)
 (ddb/conf/uniquify)
 (ddb/conf/saveplace)
 (ddb/conf/helm)
@@ -103,8 +103,6 @@
 (defmacro soft-jit-require (package-symbol &rest args)
   (when (locate-library (format "%s" (cadr package-symbol)))
     `(jit-require ,package-symbol ,@args)))
-
-
 
 (defvar ido-cur-item nil)
 (defvar ido-default-item nil)
