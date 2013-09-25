@@ -67,6 +67,11 @@
                       ("M-X" . smex-major-mode-commands)
                       ("C-c C-c M-x" . execute-extended-command)))
 
+(setq ddb/mode/octave-mod '("\\.m\\'" . octave-mode)
+      ddb/mode/less-css-mode '("\\.less\\'" . less-css-mode)
+      ddb/mode/yaml-mode '("\\.yaml\\'" . yaml-mode)
+      ddb/mode/markdown-mode '("\\.md\\'" . markdown-mode))
+
 (defun ddb/conf/general-behavior ()
   (setq inhibit-startup-screen t
         initial-scratch-message nil
@@ -242,16 +247,6 @@
   (add-hook 'LaTeX-mode-hook 'ddb/conf/latex/reftex)
   (add-hook 'LaTeX-mode-hook 'TeX-toggle-debug-warnings)
   (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode))
-
-(defun ddb/conf/octave ()
-  (add-to-list 'auto-mode-alist '("\\.m\\'" . octave-mode)))
-
-(defun ddb/conf/less ()
-  (add-to-list 'auto-mode-alist '("\\.less\\'" . less-css-mode)))
-
-(defun ddb/conf/yaml ()
-  (autoload 'yaml-mode "yaml-mode" "YAML major mode" t)
-  (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode)))
 
 (defun ddb/conf/shakespearean ()
   (add-to-list 'auto-mode-alist '("\\.hamlet\\'" . html-mode))
