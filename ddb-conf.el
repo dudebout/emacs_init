@@ -48,7 +48,6 @@
   (global-set-key (kbd "C-S-<up>") 'enlarge-window)
   (global-set-key (kbd "C-<tab>") 'bury-buffer)
   (global-set-key (kbd "M-/") 'hippie-expand)
-  (global-set-key (kbd "C-=") 'ace-jump-mode)
   (global-set-key (kbd "C-'") 'er/expand-region)
   (global-set-key (kbd "M-m") 'jump-char-forward)
   (global-set-key (kbd "M-S-m") 'jump-char-backward)
@@ -57,7 +56,6 @@
   (global-set-key (kbd "C-c b") 'org-iswitchb)
   (global-set-key (kbd "C-c c") 'org-capture)
   (global-set-key (kbd "C-c g") 'gnus)
-  (setq ddb/bind/magit '("C-c i" . magit-status))
   (global-set-key (kbd "C-c k") 'ddb/kill-current-buffer-and-delete-file)
   (global-set-key (kbd "C-c l") 'org-store-link)
   (global-set-key (kbd "C-c m") 'mu4e)
@@ -73,6 +71,12 @@
   (global-set-key (kbd "C-x M-r") 'ddb/rotate-windows)
   (global-set-key (kbd "C-x M-k") 'ddb/delete-current-buffer-and-delete-file)
   (global-set-key (kbd "C-x M-s") 'ddb/sudo-edit))
+
+(setq ddb/bind/ace-jump-mode '("C-." . ace-jump-mode)
+      ddb/bind/magit '("C-c i" . magit-status)
+      ddb/bind/smex '(("M-x" . smex)
+                      ("M-X" . smex-major-mode-commands)
+                      ("C-c C-c M-x" . execute-extended-command)))
 
 (defun ddb/conf/general-behavior ()
   (setq inhibit-startup-screen t
@@ -382,12 +386,8 @@
 
   (add-hook 'gnus-group-mode-hook 'ddb/conf/gnus-group-hook))
 
-(defun ddb/conf/smex ()
-  (require 'smex)
-  (smex-initialize)
-  (global-set-key (kbd "M-x") 'smex)
-  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-  (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command))
+(defun ddb/config/smex ()
+  (smex-initialize))
 
 (defun ddb/conf/uniquify ()
   (require 'uniquify)

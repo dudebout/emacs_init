@@ -10,7 +10,7 @@
 
 (load-theme 'zenburn)
 
-(setq ddb/packages '(ace-jump-mode paredit smex ido-ubiquitous auctex org haml-mode haskell-mode twittering-mode auto-complete idle-highlight-mode expand-region minimap ssh-config-mode rainbow-delimiters rainbow-mode bookmark+ dired+ dired-details multiple-cursors less-css-mode yaml-mode window-number elisp-slime-nav git-gutter ghci-completion git-commit-mode gitconfig-mode gitignore-mode projectile helm highlight-cl redshank helm-descbinds jump-char elpy lein nrepl ac-nrepl lexbind-mode diminish esup))
+(setq ddb/packages '(paredit auctex org haml-mode haskell-mode twittering-mode auto-complete idle-highlight-mode expand-region minimap ssh-config-mode rainbow-delimiters rainbow-mode bookmark+ dired+ dired-details multiple-cursors less-css-mode yaml-mode window-number elisp-slime-nav git-gutter ghci-completion git-commit-mode gitconfig-mode gitignore-mode projectile helm highlight-cl redshank helm-descbinds jump-char elpy lein nrepl ac-nrepl lexbind-mode diminish esup))
 
 (ddb/conf/install-packages ddb/packages)
 
@@ -23,9 +23,9 @@
 (ddb/conf/proced)
 (ddb/conf/uniquify)
 (ddb/conf/saveplace)
+
 (ddb/conf/helm)
 (ddb/conf/projectile)
-(ddb/conf/smex)
 (ddb/conf/ffap-latex)
 (ddb/conf/yasnippet)
 (ddb/conf/auto-complete)
@@ -79,7 +79,10 @@
 ;;          :bind ,ddb/bind
 ;;          :config ,ddb/config))))
 
-(add-to-list 'load-path "~/external/use-package/")
+(require 'cask "~/external/cask.el/cask.el")
+(cask-setup "~/repositories/emacs_init")
+(epl-initialize)
+;; (add-to-list 'load-path "~/external/use-package/")
 (require 'use-package)
 
 ; Add a debug statement for explicit statement of what is loaded exactly
@@ -109,5 +112,8 @@
 (defvar ido-cur-list nil)
 (defvar predicate nil)
 (defvar inherit-input-method nil)
+
+(soft-jit-require 'ace-jump-mode)
 (soft-jit-require 'ido-ubiquitous)
 (soft-jit-require 'magit)
+(soft-jit-require 'smex :defer nil)
