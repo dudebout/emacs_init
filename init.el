@@ -59,26 +59,29 @@
 (add-to-list 'load-path "~/external/use-package/")
 (require 'use-package)
 
+(defvar auto-use-package-symbol-string "auto-use-package/%s/%s")
+
+(defun auto-use-package-symbol (keyword package-name)
+  (intern (format auto-use-package-symbol-string keyword package-name)))
+
 ; Add a debug statement for explicit statement of what is loaded exactly
-(defmacro ddb/use-package (package-name &rest args)
-  (cl-letf ((ddb/config (intern (format "ddb/config/%s" package-name)))
-            (ddb/init (intern (format "ddb/init/%s" package-name))))
-    (let* ((ddb/bind (intern (format "ddb/bind/%s" package-name)))
-           (ddb/init/arg (when (fboundp ddb/init)
-                            `(:init (,ddb/init))))
-           (ddb/config/arg (when (fboundp ddb/config)
-                            `(:config (,ddb/config))))
-           (ddb/bind/arg (when (boundp ddb/bind)
-                            `(:bind ,ddb/bind))))
+(defmacro auto-use-package (package-name &rest args)
+  (cl-letf ((auto-config (auto-use-package-symbol "config" package-name))
+            (auto-init (auto-use-package-symbol "init" package-name)))
+    (let* ((auto-bind (auto-use-package-symbol "bind" package-name))
+           (auto-init/arg (when (fboundp auto-init)
+                            `(:init (,auto-init))))
+           (auto-config/arg (when (fboundp auto-config)
+                            `(:config (,auto-config))))
+           (auto-bind/arg (when (boundp auto-bind)
+                            `(:bind ,auto-bind))))
       `(use-package ,package-name
-         ,@ddb/bind/arg
-         ,@ddb/init/arg
-         ,@ddb/config/arg
+         ,@auto-bind/arg
+         ,@auto-init/arg
+         ,@auto-config/arg
          ,@args))))
 
-(defmacro uses (package-symbol &rest args)
-  (let ((name (intern (format "%s" (cadr package-symbol)))))
-    `(ddb/use-package ,name  ,@args)))
+(setq auto-use-package-symbol-string "ddb/%s/%s")
 
 (defvar ido-cur-item nil)
 (defvar ido-default-item nil)
@@ -86,19 +89,19 @@
 (defvar predicate nil)
 (defvar inherit-input-method nil)
 
-(uses 'ace-jump-mode)
-(uses 'bibtex :defer t)
-(uses 'expand-region)
-(uses 'helm-files)
-(uses 'helm-misc)
-(uses 'helm-descbinds)
-(uses 'ido-ubiquitous)
-(uses 'magit)
-(uses 'projectile)
-(uses 'smex)
-(uses 'twittering)
-(uses 'git-gutter)
-(uses 'window-number)
-(uses 'toto)
+(auto-use-package ace-jump-mode)
+(auto-use-package bibtex :defer t)
+(auto-use-package expand-region)
+(auto-use-package helm-files)
+(auto-use-package helm-misc)
+(auto-use-package helm-descbinds)
+(auto-use-package ido-ubiquitous)
+(auto-use-package magit)
+(auto-use-package projectile)
+(auto-use-package smex)
+(auto-use-package twittering)
+(auto-use-package git-gutter)
+(auto-use-package window-number)
+(auto-use-package toto)
 
 (ddb/conf/ffap-latex)
