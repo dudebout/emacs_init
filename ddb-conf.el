@@ -486,25 +486,23 @@
        ;; only rare need for ""
        (ffap-locate-file name '(".cls" ".sty" ".tex" ".bib" ".tikz" "") ffap-tex-path))))
 
-(defun ddb/conf/yasnippet ()
-  (require 'yasnippet)
+(defun ddb/init/yasnippet ()
   (yas-global-mode 1))
 
-(defun ddb/conf/auto-complete ()
-  (require 'auto-complete-config)
+(defun ddb/init/auto-complete-config ()
   (ac-config-default)
   (setq-default ac-sources '(ac-source-abbrev ac-source-dictionary ac-source-words-in-same-mode-buffers ac-source-yasnippet))
   (ac-flyspell-workaround))
 
-(defun ddb/conf/ido ()
-  (ido-mode t)
-  (ido-everywhere t)
+(defun ddb/init/ido ()
   (setq ido-create-new-buffer 'always
         ido-ignore-files '("\\`CVS/" "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./" "\\.hi\\'")
         ido-enable-flex-matching t
         ido-use-virtual-buffers t
         ido-use-filename-at-point 'guess
-        ido-use-url-at-point t))
+        ido-use-url-at-point t)
+  (ido-mode t)
+  (ido-everywhere t))
 
 (defun ddb/config/ido-ubiquitous ()
   (ido-ubiquitous-mode t))
@@ -519,7 +517,7 @@
             add-log-mailing-address (split-string (shell-command-to-string "git config user.email") "\n" t))))
   (add-hook 'find-file-hook 'ddb/conf/changelog/set-git-name-and-email))
 
-(defun ddb/conf/rainbow-delimiters ()
+(defun ddb/init/rainbow-delimiters ()
   (global-rainbow-delimiters-mode))
 
 (defun ddb/init/window-number ()

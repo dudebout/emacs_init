@@ -14,7 +14,6 @@
 (cask-setup "~/repositories/emacs_init")
 (epl-initialize)
 
-
 (ddb/conf/general-behavior)
 (ddb/conf/copy-cut-line-at-point)
 (ddb/conf/ask-before-suspend)
@@ -25,12 +24,6 @@
 (ddb/conf/uniquify)
 (ddb/conf/saveplace)
 
-(ddb/conf/yasnippet)
-(ddb/conf/auto-complete)
-(ddb/conf/ido)
-(ddb/conf/changelog)
-(ddb/conf/rainbow-delimiters)
-
 (ddb/conf/prog)
 (ddb/conf/text)
 (ddb/conf/comint)
@@ -40,10 +33,6 @@
 (ddb/conf/haskell)
 (ddb/conf/python)
 (ddb/conf/latex)
-(ddb/conf/octave)
-(ddb/conf/less)
-(ddb/conf/yaml)
-(ddb/conf/shakespearean)
 
 (ddb/conf/multiple-cursors)
 (ddb/conf/ibuffer)
@@ -51,7 +40,6 @@
 (ddb/conf/dired-details)
 (ddb/conf/dired+)
 (ddb/conf/gnus)
-
 (ddb/conf/org)
 
 (require 'ddb-temp)
@@ -90,11 +78,14 @@
 (defvar inherit-input-method nil)
 
 (auto-use-package ace-jump-mode)
+(auto-use-package auto-complete-config)
+(auto-use-package rainbow-delimiters)
 (auto-use-package bibtex :defer t)
 (auto-use-package expand-region)
 (auto-use-package helm-files)
 (auto-use-package helm-misc)
 (auto-use-package helm-descbinds)
+(auto-use-package ido)
 (auto-use-package ido-ubiquitous)
 (auto-use-package magit)
 (auto-use-package projectile)
@@ -102,6 +93,13 @@
 (auto-use-package twittering)
 (auto-use-package git-gutter)
 (auto-use-package window-number)
-(auto-use-package toto)
+(auto-use-package yasnippet)
 
+(auto-use-package octave-mod :mode ("\\.m\\'" . octave-mode))
+(auto-use-package less-css-mode :mode ("\\.m\\'" . less-css-mode))
+(auto-use-package yaml-mode :mode ("\\.yaml\\'" . yaml-mode))
+
+
+(ddb/conf/shakespearean)
+(ddb/conf/changelog)
 (ddb/conf/ffap-latex)
