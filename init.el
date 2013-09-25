@@ -10,10 +10,10 @@
 
 (load-theme 'zenburn)
 
-(require 'cask "~/external/cask.el/cask.el")
-(cask-setup "~/repositories/emacs_init")
-(epl-initialize)
-;; will work once in .emacs.d
+(require 'cask "~/external/cask/cask.el")
+(setq cask-project-path "~/repositories/emacs_init")
+(cask-initialize)
+
 (require 'pallet)
 
 (ddb/conf/general-behavior)
