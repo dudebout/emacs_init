@@ -10,11 +10,15 @@
 
 (load-theme 'zenburn)
 
+
+
 (require 'cask "~/external/cask/cask.el")
 (setq cask-project-path "~/repositories/emacs_init")
 (cask-initialize)
 
+(add-to-list 'load-path "~/external/pallet/lib")
 (require 'pallet)
+
 
 (ddb/conf/general-behavior)
 (ddb/conf/copy-cut-line-at-point)
