@@ -10,9 +10,10 @@
 
 (load-theme 'zenburn)
 
-(setq ddb/packages '(paredit auctex org haml-mode haskell-mode twittering-mode auto-complete idle-highlight-mode expand-region minimap ssh-config-mode rainbow-delimiters rainbow-mode bookmark+ dired+ dired-details multiple-cursors less-css-mode yaml-mode window-number elisp-slime-nav git-gutter ghci-completion git-commit-mode gitconfig-mode gitignore-mode projectile helm highlight-cl redshank helm-descbinds jump-char elpy lein nrepl ac-nrepl lexbind-mode diminish esup))
+(require 'cask "~/external/cask.el/cask.el")
+(cask-setup "~/repositories/emacs_init")
+(epl-initialize)
 
-(ddb/conf/install-packages ddb/packages)
 
 (ddb/conf/general-behavior)
 (ddb/conf/copy-cut-line-at-point)
@@ -43,7 +44,6 @@
 (ddb/conf/haskell)
 (ddb/conf/python)
 (ddb/conf/latex)
-(ddb/conf/bibtex)
 (ddb/conf/octave)
 (ddb/conf/less)
 (ddb/conf/yaml)
@@ -62,27 +62,7 @@
 
 (require 'ddb-temp)
 
-;(ddb/conf/magit)
-;; (use-package magit
-;;   :bind ddb/bind/magit
-;;   :config ddb/conf/magit)
-
-;; (defmacro ddb/use-package (package-name)
-;;   `(let ((ddb/bind (eval (intern (concat "ddb/bind/" (symbol-name (quote ,package-name)))))))
-;;        (use-package ,package-name
-;;          :bind ddb/bind)))
-
-;; (defmacro ddb/use-package (package-name)
-;;   (let ((ddb/bind (intern (format "ddb/bind/%s" package-name))))
-;;     (cl-letf ((ddb/config (intern (format "ddb/conf/%s" package-name))))
-;;       `(use-package ,package-name
-;;          :bind ,ddb/bind
-;;          :config ,ddb/config))))
-
-(require 'cask "~/external/cask.el/cask.el")
-(cask-setup "~/repositories/emacs_init")
-(epl-initialize)
-;; (add-to-list 'load-path "~/external/use-package/")
+(add-to-list 'load-path "~/external/use-package/")
 (require 'use-package)
 
 ; Add a debug statement for explicit statement of what is loaded exactly
@@ -90,7 +70,7 @@
   (cl-letf ((ddb/config (intern (format "ddb/config/%s" package-name))))
     (let* ((ddb/bind (intern (format "ddb/bind/%s" package-name)))
            (ddb/config/arg (when (fboundp ddb/config)
-                            `(:config ,ddb/config)))
+                            `(:config (,ddb/config))))
            (ddb/bind/arg (when (boundp ddb/bind)
                             `(:bind ,ddb/bind))))
       `(use-package ,package-name
@@ -114,6 +94,8 @@
 (defvar inherit-input-method nil)
 
 (soft-jit-require 'ace-jump-mode)
+(soft-jit-require 'bibtex :defer t)
+(soft-jit-require 'expand-region)
 (soft-jit-require 'ido-ubiquitous)
 (soft-jit-require 'magit)
 (soft-jit-require 'smex :defer nil)

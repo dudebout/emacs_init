@@ -25,19 +25,6 @@
     (interactive
       (when (yes-or-no-p (format "Are you sure you want to suspend Emacs? "))))))
 
-(defun ddb/conf/install-packages (package-list)
-  "Install packages."
-  (setq package-archives '(("elpa" . "http://tromey.com/elpa/")
-                           ("melpa" . "http://melpa.milkbox.net/packages/")
-                           ("gnu" . "http://elpa.gnu.org/packages/")
-                           ("marmalade" . "http://marmalade-repo.org/packages/")))
-  (package-initialize)
-  (when (not package-archive-contents)
-    (package-refresh-contents))
-  (dolist (package package-list)
-    (when (not (package-installed-p package))
-      (package-install package))))
-
 (defun ddb/conf/global-set-keys ()
   (winner-mode 1) ; C-c left = undo in window configuration
   (windmove-default-keybindings)
@@ -48,7 +35,6 @@
   (global-set-key (kbd "C-S-<up>") 'enlarge-window)
   (global-set-key (kbd "C-<tab>") 'bury-buffer)
   (global-set-key (kbd "M-/") 'hippie-expand)
-  (global-set-key (kbd "C-'") 'er/expand-region)
   (global-set-key (kbd "M-m") 'jump-char-forward)
   (global-set-key (kbd "M-S-m") 'jump-char-backward)
   (global-set-key (kbd "C-a") 'ddb/beginning-of-line-or-indentation)
@@ -73,6 +59,7 @@
   (global-set-key (kbd "C-x M-s") 'ddb/sudo-edit))
 
 (setq ddb/bind/ace-jump-mode '("C-." . ace-jump-mode)
+      ddb/bind/expand-region '("C-'" . ex/expand-region)
       ddb/bind/magit '("C-c i" . magit-status)
       ddb/bind/smex '(("M-x" . smex)
                       ("M-X" . smex-major-mode-commands)
@@ -138,7 +125,7 @@
 
   (add-hook 'proced-mode-hook 'ddb/conf/proced/hook))
 
-(defun ddb/conf/bibtex ()
+(defun ddb/config/bibtex ()
   (setq bibtex-maintain-sorted-entries t
         bibtex-include-OPTkey nil
         bibtex-user-optional-fields nil
@@ -158,20 +145,17 @@
         bibtex-autokey-titleword-separator ""
         bibtex-autokey-year-title-separator "")
 
-  (defun ddb/conf/bibtex/hook ()
+  ;; makes sure that the author names with accents do not make latex crash when
+  ;; in a label
+  (push '("ä" . "a") bibtex-autokey-name-change-strings)
+  (push '("ï" . "i") bibtex-autokey-name-change-strings)
+  (push '("ö" . "o") bibtex-autokey-name-change-strings)
+  (push '("ş" . "s") bibtex-autokey-name-change-strings)
+
+  (defun ddb/hook/bibtex ()
     (setq fill-column 1000))
 
-  (eval-after-load "bibtex"
-    '(progn
-       ;; makes sure that the author names with accents do not make latex crash
-       ;; when in a label
-       (push '("ä" . "a") bibtex-autokey-name-change-strings)
-       (push '("ï" . "i") bibtex-autokey-name-change-strings)
-       (push '("ö" . "o") bibtex-autokey-name-change-strings)
-       (push '("ş" . "s") bibtex-autokey-name-change-strings)))
-
-
-  (add-hook 'bibtex-mode-hook 'ddb/conf/bibtex/hook))
+  (add-hook 'bibtex-mode-hook 'ddb/hook/bibtex))
 
 (defun ddb/config/magit ()
   (setq magit-set-upstream-on-push 'askifnotset
@@ -364,7 +348,7 @@
        (require 'org-latex)
        (require 'org-special-blocks)
        (require 'ddb-org-bib)
-       (org-clock-persistence-insinuate)
+;       (org-clock-persistence-insinuate)
        (add-to-list 'org-export-latex-classes
                     '("ieeecdc"
                       "\\documentclass{ieeecdc}
