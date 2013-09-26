@@ -16,7 +16,7 @@
 (setq cask-project-path "~/repositories/emacs_init")
 (cask-initialize)
 
-(add-to-list 'load-path "~/external/pallet/lib")
+(add-to-list 'load-path "~/external/pallet/src")
 (require 'pallet)
 
 
@@ -112,3 +112,13 @@
 (ddb/conf/shakespearean)
 (ddb/conf/changelog)
 (ddb/conf/ffap-latex)
+
+; gnu - melpa order
+; gnu - melpa no definition in pallet
+; (depends-on "dash")
+; (depends-on "drag-stuff")
+; (depends-on "multiple-cursors")
+; (depends-on "popwin")
+; (depends-on "s")
+; (depends-on "wrap-region")
+; (depends-on "yasnippet")

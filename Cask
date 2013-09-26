@@ -1,6 +1,5 @@
-;; Which order
-(source gnu)
-(source melpa)
+(source "gnu" "http://elpa.gnu.org/packages/")
+(source "melpa" "http://melpa.milkbox.net/packages/")
 
 (depends-on "ac-nrepl")
 (depends-on "ace-jump-mode")
@@ -36,8 +35,8 @@
 (depends-on "multiple-cursors")
 (depends-on "nrepl")
 (depends-on "org")
-(depends-on "paredit")
 (depends-on "pallet")
+(depends-on "paredit")
 (depends-on "projectile")
 (depends-on "rainbow-delimiters")
 (depends-on "rainbow-mode")
@@ -48,11 +47,3 @@
 (depends-on "use-package")
 (depends-on "window-number")
 (depends-on "yaml-mode")
-
-; (depends-on "dash")
-; (depends-on "drag-stuff")
-; (depends-on "multiple-cursors")
-; (depends-on "popwin")
-; (depends-on "s")
-; (depends-on "wrap-region")
-; (depends-on "yasnippet")
