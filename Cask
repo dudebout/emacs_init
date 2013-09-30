@@ -1,5 +1,5 @@
-(source "gnu" "http://elpa.gnu.org/packages/")
-(source "melpa" "http://melpa.milkbox.net/packages/")
+(source gnu)
+(source melpa)
 
 (depends-on "ac-nrepl")
 (depends-on "ace-jump-mode")
@@ -47,3 +47,10 @@
 (depends-on "use-package")
 (depends-on "window-number")
 (depends-on "yaml-mode")
+(depends-on "yasnippet")
+
+(depends-on "dash")
+(depends-on "drag-stuff")
+(depends-on "popwin")
+(depends-on "s")
+(depends-on "wrap-region")

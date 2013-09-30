@@ -1,3 +1,5 @@
+(add-to-list 'auto-mode-alist '("Cask\\'" . emacs-lisp-mode))
+
 (defun ddb/conf/copy-cut-line-at-point ()
   (defadvice kill-ring-save (before copy-line-at-point activate compile)
     "When called with no active region, copy the line at point."
@@ -63,14 +65,25 @@
       ddb/bind/helm-files '("C-c f" . helm-find-files)
       ddb/bind/helm-misc '("<f5>" . helm-mini)
       ddb/bind/magit '("C-c i" . magit-status)
+      ddb/bind/multiple-cursors '(("C-S-c C-S-c" . mc/edit-lines)
+                                  ("C-S-c C-e" . mc/edit-ends-of-lines)
+                                  ("C-S-c C-a" . mc/edit-beginnings-of-lines)
+                                  ("C-S-c C-s" . mc/mark-all-in-region)
+                                  ("C-\"" . mc/mark-next-like-this)
+                                  ("C-|" . mc/mark-all-like-this)
+                                  ("C-<" . mc/mark-previous-like-this)
+                                  ("C->" . mc/mark-more-like-this-extended))
       ddb/bind/smex '(("M-x" . smex)
                       ("M-X" . smex-major-mode-commands)
                       ("C-c C-c M-x" . execute-extended-command)))
 
-(setq ddb/mode/octave-mod '("\\.m\\'" . octave-mode)
+(setq ddb/mode/css-mode '("\\.lucius\\'" . css-mode)
+      ddb/mode/html-mode '("\\.hamlet\\'" . html-mode)
+      ddb/mode/javascript-mode '("\\.julius\\'" . javacript-mode)
       ddb/mode/less-css-mode '("\\.less\\'" . less-css-mode)
-      ddb/mode/yaml-mode '("\\.yaml\\'" . yaml-mode)
-      ddb/mode/markdown-mode '("\\.md\\'" . markdown-mode))
+      ddb/mode/markdown-mode '("\\.md\\'" . markdown-mode)
+      ddb/mode/octave-mod '("\\.m\\'" . octave-mode)
+      ddb/mode/yaml-mode '("\\.yaml\\'" . yaml-mode))
 
 (defun ddb/conf/general-behavior ()
   (setq inhibit-startup-screen t
@@ -159,10 +172,10 @@
   (push '("ö" . "o") bibtex-autokey-name-change-strings)
   (push '("ş" . "s") bibtex-autokey-name-change-strings)
 
-  (defun ddb/hook/bibtex ()
+  (defun ddb/hook/bibtex-mode ()
     (setq fill-column 1000))
 
-  (add-hook 'bibtex-mode-hook 'ddb/hook/bibtex))
+  (add-hook 'bibtex-mode-hook 'ddb/hook/bibtex-mode))
 
 (defun ddb/config/magit ()
   (setq magit-set-upstream-on-push 'askifnotset
@@ -248,13 +261,7 @@
   (add-hook 'LaTeX-mode-hook 'TeX-toggle-debug-warnings)
   (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode))
 
-(defun ddb/conf/shakespearean ()
-  (add-to-list 'auto-mode-alist '("\\.hamlet\\'" . html-mode))
-  (add-to-list 'auto-mode-alist '("\\.lucius\\'" . css-mode))
-  (add-to-list 'auto-mode-alist '("\\.julius\\'" . javascript-mode)))
-
-(defun ddb/conf/org ()
-  (require 'org-protocol)
+(defun ddb/config/org ()
   (setq org-startup-indented t
         org-use-speed-commands t
         org-src-fontify-natively t
@@ -358,20 +365,19 @@
                       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                       ("\\paragraph{%s}" . "\\paragraph*{%s}"))))))
 
-(defun ddb/conf/gnus ()
+(defun ddb/config/gnus ()
   (setq gnus-always-read-dribble-file t
         gnus-message-archive-method nil)
 
-  (defun ddb/conf/gnus-group-hook ()
+  (defun ddb/hook/gnus-group ()
     (gnus-topic-mode))
 
-  (add-hook 'gnus-group-mode-hook 'ddb/conf/gnus-group-hook))
+  (add-hook 'gnus-group-mode-hook 'ddb/hook/gnus-group))
 
 (defun ddb/config/smex ()
   (smex-initialize))
 
-(defun ddb/conf/uniquify ()
-  (require 'uniquify)
+(defun ddb/config/uniquify ()
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
 
 (defun ddb/conf/external-programs ()
@@ -397,7 +403,7 @@
     (flyspell-mode))
   (add-hook 'text-mode-hook 'ddb/conf/text/hook))
 
-(defun ddb/conf/dired ()
+(defun ddb/config/dired ()
   (setq dired-listing-switches "-lh"
         dired-dwim-target t)
 
@@ -430,7 +436,7 @@
   (eval-after-load "dired"
     '(require 'dired+)))
 
-(defun ddb/conf/ibuffer ()
+(defun ddb/config/ibuffer ()
   (setq ibuffer-saved-filter-groups
         '(("default"
            ("git:ddb"
@@ -456,21 +462,10 @@
                     (name . "gnus")
                     (name . "^\\.newsrc-dribble"))))))
 
-  (defun ddb/conf/ibuffer/set-initial-group ()
+  (defun ddb/hook/ibuffer-mode ()
     (ibuffer-switch-to-saved-filter-groups "default"))
 
-  (add-hook 'ibuffer-mode-hook 'ddb/conf/ibuffer/set-initial-group))
-
-(defun ddb/conf/multiple-cursors ()
-  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-  (global-set-key (kbd "C-S-c C-e") 'mc/edit-ends-of-lines)
-  (global-set-key (kbd "C-S-c C-a") 'mc/edit-beginnings-of-lines)
-  (global-set-key (kbd "C-S-c C-s") 'mc/mark-all-in-region)
-
-  (global-set-key (kbd "C-\"") 'mc/mark-next-like-this)
-  (global-set-key (kbd "C-|") 'mc/mark-all-like-this)
-  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-  (global-set-key (kbd "C->") 'mc/mark-more-like-this-extended))
+  (add-hook 'ibuffer-mode-hook 'ddb/hook/ibuffer-mode))
 
 (defun ddb/conf/ffap-latex ()
   (setq ffap-kpathsea-depth 4)
