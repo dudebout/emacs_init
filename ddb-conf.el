@@ -23,15 +23,15 @@
   ;; (highlight-cl-add-font-lock-keywords) in emacs-lisp-mode
 
 
-(defun ddb/conf/haskell ()
-  (defun ddb/conf/haskell/hook ()
+(defun ddb/config/haskell-mode ()
+  (defun ddb/hook/haskell-mode ()
     (subword-mode)
     (turn-on-haskell-doc-mode)
     (turn-on-haskell-indent)
     ;; temporary fix until haskell-mode is derived from prog-mode
-    (ddb/conf/prog/hook))
+    (ddb/hook/prog-mode))
 
-  (add-hook 'haskell-mode-hook 'ddb/conf/haskell/hook)
+  (add-hook 'haskell-mode-hook 'ddb/hook/haskell-mode)
   (add-hook 'inferior-haskell-mode-hook 'turn-on-ghci-completion)
   (autoload 'turn-on-ghci-completion "ghci-completion")
 
