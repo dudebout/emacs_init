@@ -65,6 +65,7 @@
 (auto-use-package multiple-cursors)
 (auto-use-package octave-mod)
 (auto-use-package org)
+(auto-use-package org-capture)
 (auto-use-package org-protocol)
 (auto-use-package paredit)
 (auto-use-package proced :defer t)
