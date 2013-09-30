@@ -1,89 +1,65 @@
 (add-to-list 'auto-mode-alist '("Cask\\'" . emacs-lisp-mode))
+(add-to-list 'auto-mode-alist '("SConstruct\\'" . python-mode))
 
-(defun ddb/conf/copy-cut-line-at-point ()
-  (defadvice kill-ring-save (before copy-line-at-point activate compile)
-    "When called with no active region, copy the line at point."
-    (interactive
-     (if (use-region-p)
-         (list (region-beginning)
-               (region-end))
-       (progn
-         (message "Copied line")
-         (list (line-beginning-position)
-               (line-beginning-position 2))))))
+(defun ddb/config/paredit ()
+  (add-hook 'clojure-mode-hook 'paredit-mode)
+  (add-hook 'emacs-lisp-mode-hook 'paredit-mode))
 
-  (defadvice kill-region (before cut-line-at-point activate compile)
-    "When called with no active region, kill the line at point."
-    (interactive
-     (if (use-region-p)
-         (list (region-beginning)
-               (region-end))
-       (list (line-beginning-position)
-             (line-beginning-position 2))))))
+(defun ddb/config/lexbind ()
+  (add-hook 'emacs-lisp-mode-hook 'lexbind-mode))
 
-(defun ddb/conf/ask-before-suspend ()
-  (defadvice suspend-frame (before ask-before-suspend activate compile)
-    "Asks before suspending emacs."
-    (interactive
-      (when (yes-or-no-p (format "Are you sure you want to suspend Emacs? "))))))
+(defun ddb/config/redshank ()
+  (add-hook 'emacs-lisp-mode-hook 'redshank-mode))
 
-(defun ddb/conf/global-set-keys ()
-  (winner-mode 1) ; C-c left = undo in window configuration
-  (windmove-default-keybindings)
-  (global-set-key (vector 'remap 'goto-line) 'ddb/goto-line-with-feedback)
-  (global-set-key (kbd "C-S-<left>") 'shrink-window-horizontally)
-  (global-set-key (kbd "C-S-<right>") 'enlarge-window-horizontally)
-  (global-set-key (kbd "C-S-<down>") 'shrink-window)
-  (global-set-key (kbd "C-S-<up>") 'enlarge-window)
-  (global-set-key (kbd "C-<tab>") 'bury-buffer)
-  (global-set-key (kbd "M-/") 'hippie-expand)
-  (global-set-key (kbd "M-m") 'jump-char-forward)
-  (global-set-key (kbd "M-S-m") 'jump-char-backward)
-  (global-set-key (kbd "C-a") 'ddb/beginning-of-line-or-indentation)
-  (global-set-key (kbd "C-c a") 'org-agenda)
-  (global-set-key (kbd "C-c b") 'org-iswitchb)
-  (global-set-key (kbd "C-c c") 'org-capture)
-  (global-set-key (kbd "C-c g") 'gnus)
-  (global-set-key (kbd "C-c k") 'ddb/kill-current-buffer-and-delete-file)
-  (global-set-key (kbd "C-c l") 'org-store-link)
-  (global-set-key (kbd "C-c m") 'mu4e)
-  (global-set-key (kbd "<f7>") 'compile)
-  (global-set-key (kbd "<f8>") 'menu-bar-mode)
-  (global-set-key (kbd "<f10>") 'linum-mode)
-  (global-set-key (kbd "<f11>") 'ddb/toggle-selective-display)
-  (global-set-key (kbd "C-x C-b") 'ibuffer)
-  (global-set-key (kbd "C-x M-w") 'ddb/rename-current-buffer-file)
-  (global-set-key (kbd "C-x F") 'ddb/find-file-as-root)
-  (global-set-key (kbd "C-x M-e") 'ddb/eval-and-replace)
-  (global-set-key (kbd "C-x M-b") 'ddb/swap-buffers-in-windows)
-  (global-set-key (kbd "C-x M-r") 'ddb/rotate-windows)
-  (global-set-key (kbd "C-x M-k") 'ddb/delete-current-buffer-and-delete-file)
-  (global-set-key (kbd "C-x M-s") 'ddb/sudo-edit))
+(defun ddb/config/elisp-slime-nav ()
+  (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode))
 
-(setq ddb/bind/ace-jump-mode '("C-." . ace-jump-mode)
-      ddb/bind/expand-region '("C-'" . ex/expand-region)
-      ddb/bind/helm-files '("C-c f" . helm-find-files)
-      ddb/bind/helm-misc '("<f5>" . helm-mini)
-      ddb/bind/magit '("C-c i" . magit-status)
-      ddb/bind/multiple-cursors '(("C-S-c C-S-c" . mc/edit-lines)
-                                  ("C-S-c C-e" . mc/edit-ends-of-lines)
-                                  ("C-S-c C-a" . mc/edit-beginnings-of-lines)
-                                  ("C-S-c C-s" . mc/mark-all-in-region)
-                                  ("C-\"" . mc/mark-next-like-this)
-                                  ("C-|" . mc/mark-all-like-this)
-                                  ("C-<" . mc/mark-previous-like-this)
-                                  ("C->" . mc/mark-more-like-this-extended))
-      ddb/bind/smex '(("M-x" . smex)
-                      ("M-X" . smex-major-mode-commands)
-                      ("C-c C-c M-x" . execute-extended-command)))
+(defun ddb/config/eldoc ()
+  (add-hook 'emacs-lisp-mode-hook 'eldoc-mode))
 
-(setq ddb/mode/css-mode '("\\.lucius\\'" . css-mode)
-      ddb/mode/html-mode '("\\.hamlet\\'" . html-mode)
-      ddb/mode/javascript-mode '("\\.julius\\'" . javacript-mode)
-      ddb/mode/less-css-mode '("\\.less\\'" . less-css-mode)
-      ddb/mode/markdown-mode '("\\.md\\'" . markdown-mode)
-      ddb/mode/octave-mod '("\\.m\\'" . octave-mode)
-      ddb/mode/yaml-mode '("\\.yaml\\'" . yaml-mode))
+  ;; ddb/config/highlight-cl -- takes too much CPU
+  ;; (autoload 'highlight-cl-add-font-lock-keywords "highlight-cl")
+  ;; (add-hook 'lisp-interaction-mode-hook 'highlight-cl-add-font-lock-keywords)
+  ;; (highlight-cl-add-font-lock-keywords) in emacs-lisp-mode
+
+
+(defun ddb/conf/haskell ()
+  (defun ddb/conf/haskell/hook ()
+    (subword-mode)
+    (turn-on-haskell-doc-mode)
+    (turn-on-haskell-indent)
+    ;; temporary fix until haskell-mode is derived from prog-mode
+    (ddb/conf/prog/hook))
+
+  (add-hook 'haskell-mode-hook 'ddb/conf/haskell/hook)
+  (add-hook 'inferior-haskell-mode-hook 'turn-on-ghci-completion)
+  (autoload 'turn-on-ghci-completion "ghci-completion")
+
+  (eval-after-load "haskell-mode-map"
+    '(define-key haskell-mode-map (kbd "C-;") 'haskell-hoogle)))
+
+(defun ddb/conf/latex ()
+  (setq TeX-electric-sub-and-superscript t
+        TeX-parse-self t
+        TeX-save-query nil
+        TeX-force-default-mode t
+        TeX-source-correlate-method 'synctex
+        preview-scale-function 1.5)
+
+  (defun ddb/conf/latex/reftex ()
+    (progn
+      (turn-on-reftex)
+      (reftex-set-cite-format 'default)
+      (setq reftex-plug-into-AUCTeX t)))
+
+  (defun ddb/conf/latex/synctex ()
+    (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode))
+
+  (add-to-list 'auto-mode-alist '("\\.tikz\\'" . latex-mode))
+
+  (add-hook 'LaTeX-mode-hook 'ddb/conf/latex/reftex)
+  (add-hook 'LaTeX-mode-hook 'TeX-toggle-debug-warnings)
+  (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode))
 
 (defun ddb/conf/general-behavior ()
   (setq inhibit-startup-screen t
@@ -136,14 +112,114 @@
   (add-hook 'before-save-hook 'whitespace-cleanup)
   (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p))
 
-(defun ddb/conf/proced ()
+(defun ddb/config/term-mode ()
+  (defun ddb/hook/term-mode ()
+    (setq show-trailing-whitespace nil))
+  (add-hook 'term-mode-hook 'ddb/hook/term-mode))
+
+(defun ddb/conf/changelog ()
+  (make-local-variable 'add-log-full-name)
+  (make-local-variable 'add-log-mailing-address)
+  (defun ddb/conf/changelog/set-git-name-and-email ()
+    (when (and buffer-file-name
+               (eq (vc-backend buffer-file-name) 'Git))
+      (setq add-log-full-name (split-string (shell-command-to-string "git config user.name") "\n" t)
+            add-log-mailing-address (split-string (shell-command-to-string "git config user.email") "\n" t))))
+  (add-hook 'find-file-hook 'ddb/conf/changelog/set-git-name-and-email))
+
+(defun ddb/conf/copy-cut-line-at-point ()
+  (defadvice kill-ring-save (before copy-line-at-point activate compile)
+    "When called with no active region, copy the line at point."
+    (interactive
+     (if (use-region-p)
+         (list (region-beginning)
+               (region-end))
+       (progn
+         (message "Copied line")
+         (list (line-beginning-position)
+               (line-beginning-position 2))))))
+
+  (defadvice kill-region (before cut-line-at-point activate compile)
+    "When called with no active region, kill the line at point."
+    (interactive
+     (if (use-region-p)
+         (list (region-beginning)
+               (region-end))
+       (list (line-beginning-position)
+             (line-beginning-position 2))))))
+
+(defun ddb/conf/ask-before-suspend ()
+  (defadvice suspend-frame (before ask-before-suspend activate compile)
+    "Asks before suspending emacs."
+    (interactive
+      (when (yes-or-no-p (format "Are you sure you want to suspend Emacs? "))))))
+
+(defun ddb/conf/global-set-keys ()
+  (winner-mode 1) ; C-c left = undo in window configuration
+  (windmove-default-keybindings)
+  (global-set-key (kbd "C-S-<left>") 'shrink-window-horizontally)
+  (global-set-key (kbd "C-S-<right>") 'enlarge-window-horizontally)
+  (global-set-key (kbd "C-S-<down>") 'shrink-window)
+  (global-set-key (kbd "C-S-<up>") 'enlarge-window)
+  (global-set-key (kbd "C-<tab>") 'bury-buffer)
+  (global-set-key (kbd "M-m") 'jump-char-forward)
+  (global-set-key (kbd "M-S-m") 'jump-char-backward)
+  (global-set-key (kbd "<f7>") 'compile)
+  (global-set-key (kbd "M-/") 'hippie-expand)
+  (global-set-key (kbd "<f10>") 'linum-mode)
+  (global-set-key (kbd "<f8>") 'menu-bar-mode)
+  (global-set-key (kbd "C-a") 'ddb/beginning-of-line-or-indentation)
+  (global-set-key (kbd "C-c k") 'ddb/kill-current-buffer-and-delete-file)
+  (global-set-key (kbd "<f11>") 'ddb/toggle-selective-display)
+  (global-set-key (kbd "C-x M-w") 'ddb/rename-current-buffer-file)
+  (global-set-key (kbd "C-x F") 'ddb/find-file-as-root)
+  (global-set-key (kbd "C-x M-e") 'ddb/eval-and-replace)
+  (global-set-key (kbd "C-x M-b") 'ddb/swap-buffers-in-windows)
+  (global-set-key (kbd "C-x M-r") 'ddb/rotate-windows)
+  (global-set-key (kbd "C-x M-k") 'ddb/delete-current-buffer-and-delete-file)
+  (global-set-key (kbd "C-x M-s") 'ddb/sudo-edit)
+  (global-set-key (vector 'remap 'goto-line) 'ddb/goto-line-with-feedback))
+
+(setq ddb/bind/ace-jump-mode '("C-." . ace-jump-mode)
+      ddb/bind/expand-region '("C-'" . ex/expand-region)
+      ddb/bind/gnus '("C-c g" . gnus)
+      ddb/bind/helm-files '("C-c f" . helm-find-files)
+      ddb/bind/helm-misc '("<f5>" . helm-mini)
+      ddb/bind/ibuffer '("C-x C-b" . ibuffer)
+      ddb/bind/magit '("C-c i" . magit-status)
+      ddb/bind/mu4e '("C-c m" . mu4e)
+      ddb/bind/multiple-cursors '(("C-S-c C-S-c" . mc/edit-lines)
+                                  ("C-S-c C-e" . mc/edit-ends-of-lines)
+                                  ("C-S-c C-a" . mc/edit-beginnings-of-lines)
+                                  ("C-S-c C-s" . mc/mark-all-in-region)
+                                  ("C-\"" . mc/mark-next-like-this)
+                                  ("C-|" . mc/mark-all-like-this)
+                                  ("C-<" . mc/mark-previous-like-this)
+                                  ("C->" . mc/mark-more-like-this-extended))
+      ddb/bind/org '(("C-c a" . org-agenda)
+                     ("C-c b" . org-iswitchb)
+                     ("C-c c" . org-capture)
+                     ("C-c l" . org-store-link))
+      ddb/bind/smex '(("M-x" . smex)
+                      ("M-X" . smex-major-mode-commands)
+                      ("C-c C-c M-x" . execute-extended-command)))
+
+(setq ddb/mode/css-mode '("\\.lucius\\'" . css-mode)
+      ddb/mode/html-mode '("\\.hamlet\\'" . html-mode)
+      ddb/mode/javascript-mode '("\\.julius\\'" . javacript-mode)
+      ddb/mode/less-css-mode '("\\.less\\'" . less-css-mode)
+      ddb/mode/markdown-mode '("\\.md\\'" . markdown-mode)
+      ddb/mode/octave-mod '("\\.m\\'" . octave-mode)
+      ddb/mode/yaml-mode '("\\.yaml\\'" . yaml-mode))
+
+(defun ddb/config/proced ()
   (setq proced-auto-update-interval 2)
 
-  (defun ddb/conf/proced/hook ()
+  (defun ddb/hook/proced-mode ()
     (setq proced-auto-update-flag t)
     (visual-line-mode -1))
 
-  (add-hook 'proced-mode-hook 'ddb/conf/proced/hook))
+  (add-hook 'proced-mode-hook 'ddb/hook/proced))
 
 (defun ddb/config/bibtex ()
   (setq bibtex-maintain-sorted-entries t
@@ -193,73 +269,6 @@
 (defun ddb/config/twittering ()
   (setq twittering-use-master-password t
         twittering-icon-mode t))
-
-(defun ddb/conf/elisp ()
-  (autoload 'enable-paredit-mode "paredit")
-  (autoload 'elisp-slime-nav-mode "elisp-slime-nav")
-  ;; (autoload 'highlight-cl-add-font-lock-keywords "highlight-cl")
-
-  ;; (add-hook 'lisp-interaction-mode-hook 'highlight-cl-add-font-lock-keywords)
-
-  (defun ddb/conf/emacs-lisp/hook ()
-    (elisp-slime-nav-mode t)
-    (eldoc-mode)
-    (redshank-mode 1)
-    (enable-paredit-mode))
-    ;; (highlight-cl-add-font-lock-keywords))
-
-  (add-hook 'emacs-lisp-mode-hook 'ddb/conf/emacs-lisp/hook))
-
-(defun ddb/conf/lexbind ()
-  (defun ddb/conf/lexbind/hook ()
-    (lexbind-mode))
-  (add-hook 'emacs-lisp-mode-hook 'ddb/conf/lexbind/hook))
-
-(defun ddb/conf/clojure ()
-  (defun ddb/conf/clojure/hook ()
-    (paredit-mode))
-  (add-hook 'clojure-mode-hook 'ddb/conf/clojure/hook))
-
-(defun ddb/conf/haskell ()
-  (defun ddb/conf/haskell/hook ()
-    (subword-mode)
-    (turn-on-haskell-doc-mode)
-    (turn-on-haskell-indent)
-    ;; temporary fix until haskell-mode is derived from prog-mode
-    (ddb/conf/prog/hook))
-
-  (add-hook 'haskell-mode-hook 'ddb/conf/haskell/hook)
-  (add-hook 'inferior-haskell-mode-hook 'turn-on-ghci-completion)
-  (autoload 'turn-on-ghci-completion "ghci-completion")
-
-  (eval-after-load "haskell-mode-map"
-    '(define-key haskell-mode-map (kbd "C-;") 'haskell-hoogle)))
-
-(defun ddb/conf/python ()
-  (add-to-list 'auto-mode-alist '("SConstruct\\'" . python-mode)))
-
-(defun ddb/conf/latex ()
-  (setq TeX-electric-sub-and-superscript t
-        TeX-parse-self t
-        TeX-save-query nil
-        TeX-force-default-mode t
-        TeX-source-correlate-method 'synctex
-        preview-scale-function 1.5)
-
-  (defun ddb/conf/latex/reftex ()
-    (progn
-      (turn-on-reftex)
-      (reftex-set-cite-format 'default)
-      (setq reftex-plug-into-AUCTeX t)))
-
-  (defun ddb/conf/latex/synctex ()
-    (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode))
-
-  (add-to-list 'auto-mode-alist '("\\.tikz\\'" . latex-mode))
-
-  (add-hook 'LaTeX-mode-hook 'ddb/conf/latex/reftex)
-  (add-hook 'LaTeX-mode-hook 'TeX-toggle-debug-warnings)
-  (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode))
 
 (defun ddb/config/org ()
   (setq org-startup-indented t
@@ -385,23 +394,8 @@
         browse-url-browser-function 'browse-url-generic)
   (setq-default ispell-program-name "hunspell"))
 
-(defun ddb/conf/saveplace ()
-  (require 'saveplace)
+(defun ddb/init/saveplace ()
   (setq-default save-place t))
-
-(defun ddb/conf/prog ()
-  (defun ddb/conf/prog/hook ()
-    (electric-pair-mode)
-    (idle-highlight-mode t)
-    (flyspell-prog-mode)
-    (set (make-local-variable 'comment-auto-fill-only-comments) t)
-    (auto-fill-mode t))
-  (add-hook 'prog-mode-hook 'ddb/conf/prog/hook))
-
-(defun ddb/conf/text ()
-  (defun ddb/conf/text/hook ()
-    (flyspell-mode))
-  (add-hook 'text-mode-hook 'ddb/conf/text/hook))
 
 (defun ddb/config/dired ()
   (setq dired-listing-switches "-lh"
@@ -467,14 +461,13 @@
 
   (add-hook 'ibuffer-mode-hook 'ddb/hook/ibuffer-mode))
 
-(defun ddb/conf/ffap-latex ()
+(defun ddb/config/ffap ()
   (setq ffap-kpathsea-depth 4)
 
-  (eval-after-load "ffap"
-    '(defun ffap-latex-mode (name)
-       (ffap-tex-init)
-       ;; only rare need for ""
-       (ffap-locate-file name '(".cls" ".sty" ".tex" ".bib" ".tikz" "") ffap-tex-path))))
+  (defun ffap-latex-mode (name)
+    (ffap-tex-init)
+    ;; only rare need for ""
+    (ffap-locate-file name '(".cls" ".sty" ".tex" ".bib" ".tikz" "") ffap-tex-path)))
 
 (defun ddb/init/yasnippet ()
   (yas-global-mode 1))
@@ -497,16 +490,6 @@
 (defun ddb/config/ido-ubiquitous ()
   (ido-ubiquitous-mode t))
 
-(defun ddb/conf/changelog ()
-  (make-local-variable 'add-log-full-name)
-  (make-local-variable 'add-log-mailing-address)
-  (defun ddb/conf/changelog/set-git-name-and-email ()
-    (when (and buffer-file-name
-               (eq (vc-backend buffer-file-name) 'Git))
-      (setq add-log-full-name (split-string (shell-command-to-string "git config user.name") "\n" t)
-            add-log-mailing-address (split-string (shell-command-to-string "git config user.email") "\n" t))))
-  (add-hook 'find-file-hook 'ddb/conf/changelog/set-git-name-and-email))
-
 (defun ddb/init/rainbow-delimiters ()
   (global-rainbow-delimiters-mode))
 
@@ -522,9 +505,20 @@
 (defun ddb/init/git-gutter ()
   (global-git-gutter-mode t))
 
-(defun ddb/conf/comint ()
-  (defun ddb/conf/comint/disable-whitespace-mode ()
-    (setq show-trailing-whitespace nil))
-  (add-hook 'term-mode-hook 'ddb/conf/comint/disable-whitespace-mode))
+(defun ddb/config/prog ()
+  (defun ddb/hook/prog-mode ()
+    (electric-pair-mode)
+    (idle-highlight-mode t)
+    (set (make-local-variable 'comment-auto-fill-only-comments) t)
+    (auto-fill-mode t))
+  (add-hook 'prog-mode-hook 'ddb/hook/prog-mode))
+
+(defun ddb/config/flyspell ()
+  (defun ddb/hook/flyspell/text-mode ()
+    (flyspell-mode))
+  (defun ddb/hook/flyspell/prog-mode ()
+    (flyspell-prog-mode))
+  (add-hook 'text-mode-hook 'ddb/hook/flyspell/text-mode)
+  (add-hook 'prog-mode-hook 'ddb/hook/flyspell/prog-mode))
 
 (provide 'ddb-conf)
