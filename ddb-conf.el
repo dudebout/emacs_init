@@ -1,20 +1,20 @@
 (add-to-list 'auto-mode-alist '("Cask\\'" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("SConstruct\\'" . python-mode))
 
-(defun ddb/config/paredit ()
+(defun ddb/init/paredit ()
   (add-hook 'clojure-mode-hook 'paredit-mode)
   (add-hook 'emacs-lisp-mode-hook 'paredit-mode))
 
-(defun ddb/config/lexbind ()
+(defun ddb/init/lexbind-mode ()
   (add-hook 'emacs-lisp-mode-hook 'lexbind-mode))
 
-(defun ddb/config/redshank ()
+(defun ddb/init/redshank ()
   (add-hook 'emacs-lisp-mode-hook 'redshank-mode))
 
-(defun ddb/config/elisp-slime-nav ()
+(defun ddb/init/elisp-slime-nav ()
   (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode))
 
-(defun ddb/config/eldoc ()
+(defun ddb/init/eldoc ()
   (add-hook 'emacs-lisp-mode-hook 'eldoc-mode))
 
   ;; ddb/config/highlight-cl -- takes too much CPU
@@ -505,7 +505,7 @@
 (defun ddb/init/git-gutter ()
   (global-git-gutter-mode t))
 
-(defun ddb/config/prog ()
+(defun ddb/init/prog ()
   (defun ddb/hook/prog-mode ()
     (electric-pair-mode)
     (idle-highlight-mode t)
@@ -513,7 +513,7 @@
     (auto-fill-mode t))
   (add-hook 'prog-mode-hook 'ddb/hook/prog-mode))
 
-(defun ddb/config/flyspell ()
+(defun ddb/init/flyspell ()
   (defun ddb/hook/flyspell/text-mode ()
     (flyspell-mode))
   (defun ddb/hook/flyspell/prog-mode ()
