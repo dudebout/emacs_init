@@ -1,45 +1,4 @@
-(add-to-list 'auto-mode-alist '("Cask\\'" . emacs-lisp-mode))
-(add-to-list 'auto-mode-alist '("SConstruct\\'" . python-mode))
-(add-to-list 'auto-mode-alist '("\\.hamlet\\'" . html-mode))
-(add-to-list 'auto-mode-alist '("\\.julius\\'" . javascript-mode))
-
-(defun ddb/init/paredit ()
-  (add-hook 'clojure-mode-hook 'paredit-mode)
-  (add-hook 'emacs-lisp-mode-hook 'paredit-mode))
-
-(defun ddb/init/lexbind-mode ()
-  (add-hook 'emacs-lisp-mode-hook 'lexbind-mode))
-
-(defun ddb/init/redshank ()
-  (add-hook 'emacs-lisp-mode-hook 'redshank-mode))
-
-(defun ddb/init/elisp-slime-nav ()
-  (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode))
-
-(defun ddb/init/eldoc ()
-  (add-hook 'emacs-lisp-mode-hook 'eldoc-mode))
-
-  ;; ddb/config/highlight-cl -- takes too much CPU
-  ;; (autoload 'highlight-cl-add-font-lock-keywords "highlight-cl")
-  ;; (add-hook 'lisp-interaction-mode-hook 'highlight-cl-add-font-lock-keywords)
-  ;; (highlight-cl-add-font-lock-keywords) in emacs-lisp-mode
-
-
-(defun ddb/config/haskell-mode ()
-  (defun ddb/hook/haskell-mode ()
-    (subword-mode)
-    (turn-on-haskell-doc-mode)
-    (turn-on-haskell-indent)
-    ;; temporary fix until haskell-mode is derived from prog-mode
-    (ddb/hook/prog-mode))
-
-  (add-hook 'haskell-mode-hook 'ddb/hook/haskell-mode)
-  (add-hook 'inferior-haskell-mode-hook 'turn-on-ghci-completion)
-  (autoload 'turn-on-ghci-completion "ghci-completion")
-
-  (eval-after-load "haskell-mode-map"
-    '(define-key haskell-mode-map (kbd "C-;") 'haskell-hoogle)))
-
+;;; General
 (defun ddb/conf/latex ()
   (setq TeX-electric-sub-and-superscript t
         TeX-parse-self t
@@ -113,6 +72,46 @@
   (add-hook 'isearch-mode-end-hook 'recenter-top-bottom)
   (add-hook 'before-save-hook 'whitespace-cleanup)
   (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p))
+
+(add-to-list 'auto-mode-alist '("Cask\\'" . emacs-lisp-mode))
+(add-to-list 'auto-mode-alist '("SConstruct\\'" . python-mode))
+(add-to-list 'auto-mode-alist '("\\.hamlet\\'" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.julius\\'" . javascript-mode))
+
+;;; Specific
+(defun ddb/init/outshine ()
+  (add-hook 'outline-minor-mode-hook 'outshine-hook-function)
+  (add-hook 'emacs-lisp-mode-hook 'outline-minor-mode))
+
+(defun ddb/init/paredit ()
+  (add-hook 'clojure-mode-hook 'paredit-mode)
+  (add-hook 'emacs-lisp-mode-hook 'paredit-mode))
+
+(defun ddb/init/lexbind-mode ()
+  (add-hook 'emacs-lisp-mode-hook 'lexbind-mode))
+
+(defun ddb/init/redshank ()
+  (add-hook 'emacs-lisp-mode-hook 'redshank-mode))
+
+(defun ddb/init/elisp-slime-nav ()
+  (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode))
+
+(defun ddb/init/eldoc ()
+  (add-hook 'emacs-lisp-mode-hook 'eldoc-mode))
+
+(defun ddb/config/haskell-mode ()
+  (defun ddb/hook/haskell-mode ()
+    (subword-mode)
+    (turn-on-haskell-doc-mode)
+    (turn-on-haskell-indent))
+
+  (add-hook 'haskell-mode-hook 'ddb/hook/haskell-mode)
+  (add-hook 'inferior-haskell-mode-hook 'turn-on-ghci-completion)
+  (autoload 'turn-on-ghci-completion "ghci-completion")
+
+  (eval-after-load "haskell-mode-map"
+    '(define-key haskell-mode-map (kbd "C-;") 'haskell-hoogle)))
+
 
 (defun ddb/config/term-mode ()
   (defun ddb/hook/term-mode ()
@@ -189,6 +188,7 @@
       ddb/bind/helm-misc '("<f5>" . helm-mini)
       ddb/bind/ibuffer '("C-x C-b" . ibuffer)
       ddb/bind/magit '("C-c i" . magit-status)
+      ddb/bind/magit-blame '("C-c M-l" . magit-blame-mode)
       ddb/bind/mu4e '("C-c m" . mu4e)
       ddb/bind/multiple-cursors '(("C-S-c C-S-c" . mc/edit-lines)
                                   ("C-S-c C-e" . mc/edit-ends-of-lines)
@@ -255,6 +255,7 @@
 
 (defun ddb/config/magit ()
   (setq magit-set-upstream-on-push 'askifnotset
+        magit-completing-read-function 'magit-ido-completing-read
         magit-save-some-buffers 'dontask
         magit-create-branch-behaviour 'at-point
         magit-log-auto-more t

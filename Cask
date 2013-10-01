@@ -35,6 +35,7 @@
 (depends-on "multiple-cursors")
 (depends-on "nrepl")
 (depends-on "org")
+(depends-on "outshine")
 (depends-on "pallet")
 (depends-on "paredit")
 (depends-on "projectile")
