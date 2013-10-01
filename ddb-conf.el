@@ -1,5 +1,7 @@
 (add-to-list 'auto-mode-alist '("Cask\\'" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("SConstruct\\'" . python-mode))
+(add-to-list 'auto-mode-alist '("\\.hamlet\\'" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.julius\\'" . javascript-mode))
 
 (defun ddb/init/paredit ()
   (add-hook 'clojure-mode-hook 'paredit-mode)
@@ -205,8 +207,6 @@
                       ("C-c C-c M-x" . execute-extended-command)))
 
 (setq ddb/mode/css-mode '("\\.lucius\\'" . css-mode)
-      ddb/mode/html-mode '("\\.hamlet\\'" . html-mode)
-      ddb/mode/javascript-mode '("\\.julius\\'" . javacript-mode)
       ddb/mode/less-css-mode '("\\.less\\'" . less-css-mode)
       ddb/mode/markdown-mode '("\\.md\\'" . markdown-mode)
       ddb/mode/octave-mod '("\\.m\\'" . octave-mode)
