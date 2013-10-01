@@ -1,4 +1,5 @@
 ;;; General
+;;;; LaTeX
 (defun ddb/conf/latex ()
   (setq TeX-electric-sub-and-superscript t
         TeX-parse-self t
@@ -21,7 +22,7 @@
   (add-hook 'LaTeX-mode-hook 'ddb/conf/latex/reftex)
   (add-hook 'LaTeX-mode-hook 'TeX-toggle-debug-warnings)
   (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode))
-
+;;;; General behavior
 (defun ddb/conf/general-behavior ()
   (setq inhibit-startup-screen t
         initial-scratch-message nil
@@ -72,12 +73,74 @@
   (add-hook 'isearch-mode-end-hook 'recenter-top-bottom)
   (add-hook 'before-save-hook 'whitespace-cleanup)
   (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p))
-
+;;;; auto-mode-alist
 (add-to-list 'auto-mode-alist '("Cask\\'" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("SConstruct\\'" . python-mode))
 (add-to-list 'auto-mode-alist '("\\.hamlet\\'" . html-mode))
 (add-to-list 'auto-mode-alist '("\\.julius\\'" . javascript-mode))
+;;;; keybindings
+(defun ddb/conf/global-set-keys ()
+  (winner-mode 1) ; C-c left = undo in window configuration
+  (windmove-default-keybindings)
+  (global-set-key (kbd "C-S-<left>") 'shrink-window-horizontally)
+  (global-set-key (kbd "C-S-<right>") 'enlarge-window-horizontally)
+  (global-set-key (kbd "C-S-<down>") 'shrink-window)
+  (global-set-key (kbd "C-S-<up>") 'enlarge-window)
+  (global-set-key (kbd "C-<tab>") 'bury-buffer)
+  (global-set-key (kbd "M-m") 'jump-char-forward)
+  (global-set-key (kbd "M-S-m") 'jump-char-backward)
+  (global-set-key (kbd "<f7>") 'compile)
+  (global-set-key (kbd "M-/") 'hippie-expand)
+  (global-set-key (kbd "<f10>") 'linum-mode)
+  (global-set-key (kbd "<f8>") 'menu-bar-mode)
+  (global-set-key (kbd "C-a") 'ddb/beginning-of-line-or-indentation)
+  (global-set-key (kbd "C-c k") 'ddb/kill-current-buffer-and-delete-file)
+  (global-set-key (kbd "<f11>") 'ddb/toggle-selective-display)
+  (global-set-key (kbd "C-x M-w") 'ddb/rename-current-buffer-file)
+  (global-set-key (kbd "C-x F") 'ddb/find-file-as-root)
+  (global-set-key (kbd "C-x M-e") 'ddb/eval-and-replace)
+  (global-set-key (kbd "C-x M-b") 'ddb/swap-buffers-in-windows)
+  (global-set-key (kbd "C-x M-r") 'ddb/rotate-windows)
+  (global-set-key (kbd "C-x M-k") 'ddb/delete-current-buffer-and-delete-file)
+  (global-set-key (kbd "C-x M-s") 'ddb/sudo-edit)
+  (global-set-key (vector 'remap 'goto-line) 'ddb/goto-line-with-feedback))
+;;;; changelog
+(defun ddb/conf/changelog ()
+  (make-local-variable 'add-log-full-name)
+  (make-local-variable 'add-log-mailing-address)
+  (defun ddb/conf/changelog/set-git-name-and-email ()
+    (when (and buffer-file-name
+               (eq (vc-backend buffer-file-name) 'Git))
+      (setq add-log-full-name (split-string (shell-command-to-string "git config user.name") "\n" t)
+            add-log-mailing-address (split-string (shell-command-to-string "git config user.email") "\n" t))))
+  (add-hook 'find-file-hook 'ddb/conf/changelog/set-git-name-and-email))
+;;;; copy-cut-line-at-point
+(defun ddb/conf/copy-cut-line-at-point ()
+  (defadvice kill-ring-save (before copy-line-at-point activate compile)
+    "When called with no active region, copy the line at point."
+    (interactive
+     (if (use-region-p)
+         (list (region-beginning)
+               (region-end))
+       (progn
+         (message "Copied line")
+         (list (line-beginning-position)
+               (line-beginning-position 2))))))
 
+  (defadvice kill-region (before cut-line-at-point activate compile)
+    "When called with no active region, kill the line at point."
+    (interactive
+     (if (use-region-p)
+         (list (region-beginning)
+               (region-end))
+       (list (line-beginning-position)
+             (line-beginning-position 2))))))
+;;;; aske-before-suspend
+(defun ddb/conf/ask-before-suspend ()
+  (defadvice suspend-frame (before ask-before-suspend activate compile)
+    "Asks before suspending emacs."
+    (interactive
+      (when (yes-or-no-p (format "Are you sure you want to suspend Emacs? "))))))
 ;;; Specific
 (defun ddb/init/outshine ()
   (add-hook 'outline-minor-mode-hook 'outshine-hook-function)
@@ -118,68 +181,6 @@
     (setq show-trailing-whitespace nil))
   (add-hook 'term-mode-hook 'ddb/hook/term-mode))
 
-(defun ddb/conf/changelog ()
-  (make-local-variable 'add-log-full-name)
-  (make-local-variable 'add-log-mailing-address)
-  (defun ddb/conf/changelog/set-git-name-and-email ()
-    (when (and buffer-file-name
-               (eq (vc-backend buffer-file-name) 'Git))
-      (setq add-log-full-name (split-string (shell-command-to-string "git config user.name") "\n" t)
-            add-log-mailing-address (split-string (shell-command-to-string "git config user.email") "\n" t))))
-  (add-hook 'find-file-hook 'ddb/conf/changelog/set-git-name-and-email))
-
-(defun ddb/conf/copy-cut-line-at-point ()
-  (defadvice kill-ring-save (before copy-line-at-point activate compile)
-    "When called with no active region, copy the line at point."
-    (interactive
-     (if (use-region-p)
-         (list (region-beginning)
-               (region-end))
-       (progn
-         (message "Copied line")
-         (list (line-beginning-position)
-               (line-beginning-position 2))))))
-
-  (defadvice kill-region (before cut-line-at-point activate compile)
-    "When called with no active region, kill the line at point."
-    (interactive
-     (if (use-region-p)
-         (list (region-beginning)
-               (region-end))
-       (list (line-beginning-position)
-             (line-beginning-position 2))))))
-
-(defun ddb/conf/ask-before-suspend ()
-  (defadvice suspend-frame (before ask-before-suspend activate compile)
-    "Asks before suspending emacs."
-    (interactive
-      (when (yes-or-no-p (format "Are you sure you want to suspend Emacs? "))))))
-
-(defun ddb/conf/global-set-keys ()
-  (winner-mode 1) ; C-c left = undo in window configuration
-  (windmove-default-keybindings)
-  (global-set-key (kbd "C-S-<left>") 'shrink-window-horizontally)
-  (global-set-key (kbd "C-S-<right>") 'enlarge-window-horizontally)
-  (global-set-key (kbd "C-S-<down>") 'shrink-window)
-  (global-set-key (kbd "C-S-<up>") 'enlarge-window)
-  (global-set-key (kbd "C-<tab>") 'bury-buffer)
-  (global-set-key (kbd "M-m") 'jump-char-forward)
-  (global-set-key (kbd "M-S-m") 'jump-char-backward)
-  (global-set-key (kbd "<f7>") 'compile)
-  (global-set-key (kbd "M-/") 'hippie-expand)
-  (global-set-key (kbd "<f10>") 'linum-mode)
-  (global-set-key (kbd "<f8>") 'menu-bar-mode)
-  (global-set-key (kbd "C-a") 'ddb/beginning-of-line-or-indentation)
-  (global-set-key (kbd "C-c k") 'ddb/kill-current-buffer-and-delete-file)
-  (global-set-key (kbd "<f11>") 'ddb/toggle-selective-display)
-  (global-set-key (kbd "C-x M-w") 'ddb/rename-current-buffer-file)
-  (global-set-key (kbd "C-x F") 'ddb/find-file-as-root)
-  (global-set-key (kbd "C-x M-e") 'ddb/eval-and-replace)
-  (global-set-key (kbd "C-x M-b") 'ddb/swap-buffers-in-windows)
-  (global-set-key (kbd "C-x M-r") 'ddb/rotate-windows)
-  (global-set-key (kbd "C-x M-k") 'ddb/delete-current-buffer-and-delete-file)
-  (global-set-key (kbd "C-x M-s") 'ddb/sudo-edit)
-  (global-set-key (vector 'remap 'goto-line) 'ddb/goto-line-with-feedback))
 
 (setq ddb/bind/ace-jump-mode '("C-." . ace-jump-mode)
       ddb/bind/expand-region '("C-'" . ex/expand-region)
