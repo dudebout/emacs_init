@@ -1,4 +1,5 @@
 (source gnu)
+(source org)
 (source melpa)
 
 (depends-on "ac-nrepl")
@@ -13,6 +14,7 @@
 (depends-on "elpy")
 (depends-on "esup")
 (depends-on "expand-region")
+(depends-on "ghc")
 (depends-on "ghci-completion")
 (depends-on "git-commit-mode")
 (depends-on "git-gutter")
@@ -34,7 +36,7 @@
 (depends-on "minimap")
 (depends-on "multiple-cursors")
 (depends-on "nrepl")
-(depends-on "org")
+(depends-on "org-plus-contrib")
 (depends-on "outshine")
 (depends-on "pallet")
 (depends-on "paredit")

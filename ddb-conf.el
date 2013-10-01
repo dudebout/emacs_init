@@ -142,6 +142,12 @@
     (interactive
       (when (yes-or-no-p (format "Are you sure you want to suspend Emacs? "))))))
 ;;; Specific
+;; could not put in auto-use-package
+;; for some reason flymake bugs and there is no command to be run for the flymake process
+;; (list processes will give " file.hs" with no command)
+(autoload 'ghc-init "ghc" nil t)
+(add-hook 'haskell-mode-hook (lambda () (ghc-init) (flymake-mode)))
+
 (defun ddb/init/outshine ()
   (add-hook 'outline-minor-mode-hook 'outshine-hook-function)
   (add-hook 'emacs-lisp-mode-hook 'outline-minor-mode))
