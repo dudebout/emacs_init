@@ -16,9 +16,9 @@
            (auto-config/arg (when (fboundp auto-config)
                             `(:config (,auto-config))))
            (auto-bind/arg (when (boundp auto-bind)
-                            `(:bind ,auto-bind)))
+                            `(:bind ,(symbol-value auto-bind))))
            (auto-mode/arg (when (boundp auto-mode)
-                            `(:mode ,auto-mode))))
+                            `(:mode ,(symbol-value auto-mode)))))
       `(use-package ,package-name
          ,@auto-init/arg
          ,@auto-config/arg

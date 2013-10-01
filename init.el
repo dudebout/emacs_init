@@ -25,7 +25,6 @@
 (require 'ddb-temp)
 
 (setq auto-use-package-symbol-string "ddb/%s/%s")
-(add-to-list 'load-path "~/external/use-package/")
 (require 'auto-use-package)
 
 (defvar ido-cur-item nil)
