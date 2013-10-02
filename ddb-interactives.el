@@ -1,3 +1,14 @@
+(fset 'ddb/gnus-follow-gmane-link
+           [?h ?\M-> S-iso-lefttab return ?h])
+
+(defun ddb/display-org-agenda (&optional arg)
+  "Display the org agenda."
+  (interactive "P")
+  (let ((org-agenda-window-setup (if arg
+                                     'other-window
+                                   'current-window)))
+    (org-agenda-list)))
+
 (defun ddb/create-scratch-buffer ()
   "Create a scratch buffer."
   (interactive)

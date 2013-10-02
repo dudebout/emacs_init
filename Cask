@@ -12,6 +12,7 @@
 (depends-on "dired-details")
 (depends-on "elisp-slime-nav")
 (depends-on "elpy")
+(depends-on "eproject")
 (depends-on "esup")
 (depends-on "expand-region")
 (depends-on "ghc")

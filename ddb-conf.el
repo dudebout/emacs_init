@@ -8,6 +8,9 @@
         TeX-source-correlate-method 'synctex
         preview-scale-function 1.5)
 
+  ; this should be automatic in AucTeX but is not
+  (add-hook 'latex-mode-hook 'TeX-latex-mode)
+
   (defun ddb/conf/latex/reftex ()
     (progn
       (turn-on-reftex)
@@ -20,6 +23,7 @@
   (add-to-list 'auto-mode-alist '("\\.tikz\\'" . latex-mode))
 
   (add-hook 'LaTeX-mode-hook 'ddb/conf/latex/reftex)
+  (add-hook 'LaTeX-mode-hook 'ddb/conf/latex/reftex)
   (add-hook 'LaTeX-mode-hook 'TeX-toggle-debug-warnings)
   (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode))
 ;;;; General behavior
@@ -31,6 +35,7 @@
         mouse-yank-at-point t
         vc-follow-symlinks t
         confirm-kill-emacs nil
+        minibuffer-depth-indicate-mode t
         visible-bell t
         reb-re-syntax 'string
         recentf-max-saved-items nil
@@ -91,6 +96,7 @@
   (global-set-key (kbd "M-S-m") 'jump-char-backward)
   (global-set-key (kbd "<f7>") 'compile)
   (global-set-key (kbd "M-/") 'hippie-expand)
+  (global-set-key (kbd "<f12>") 'ddb/display-agenda) ;; should be moved in a package requiring org
   (global-set-key (kbd "<f10>") 'linum-mode)
   (global-set-key (kbd "<f8>") 'menu-bar-mode)
   (global-set-key (kbd "C-a") 'ddb/beginning-of-line-or-indentation)
@@ -147,6 +153,51 @@
 ;; (list processes will give " file.hs" with no command)
 (autoload 'ghc-init "ghc" nil t)
 (add-hook 'haskell-mode-hook (lambda () (ghc-init) (flymake-mode)))
+
+
+(defun ddb/init/artbollocks-mode ()
+  (autoload 'artbollocks-mode "artbollocks-mode" nil t) ;; eventually move to ddb/commands/artbollocks-mode
+)
+
+(defun ddb/config/artbollocks-mode ()
+  (setq artbollocks-weasel-words-list
+        (delete-dups
+         '( ;; from writegood-mode
+           "many" "various" "very" "fairly" "several" "extremely" "exceedingly"
+           "quite" "remarkably" "few" "surprisingly" "mostly" "largely" "huge"
+           "tiny" "are a number" "is a number" "excellent" "interestingly"
+           "significantly" "substantially" "clearly" "vast" "relatively"
+           "completely" "literally" "not rocket science" "outside the box"
+           ;; from sachachua
+           "one of the" "should" "just" "sort of" "a lot" "probably" "maybe"
+           "perhaps" "I think" "really" "pretty" "maybe" "nice" "utilize"
+           "leverage" "many" "various" "very" "fairly" "several" "extremely"
+           "exceedingly" "quite" "remarkably" "few" "surprisingly" "mostly"
+           "largely" "huge" "tiny" "excellent" "interestingly" "significantly"
+           "substantially" "clearly" "vast" "relatively" "completely"
+           "is a number" "are a number")))
+
+  (setq artbollocks-jargon-list '())
+
+  (defun ddb/regexp-from-list (list)
+    (concat "\\b" (regexp-opt list t) "\\b"))
+
+  (setq artbollocks-weasel-words-regex
+        (ddb/regexp-from-list artbollocks-weasel-words-list))
+
+  (setq artbollocks-jargon-regex
+        (ddb/regexp-from-list artbollocks-jargon-list)))
+
+(defun ddb/init/eproject ()
+  (define-project-type latex (generic) (look-for "Makefile"))
+  (add-hook 'latex-project-file-visit-hook
+            (lambda ()
+              (set (make-local-variable 'compile-command)
+                   (format "cd %s; make" (eproject-root)))
+              (when eproject-TeX-master
+                (setq TeX-master (format "%s%s" (eproject-root) eproject-TeX-master)))))
+  (defcustom eproject-TeX-master nil "Sets the TeX master file for eproject" :safe 'stringp))
+
 
 (defun ddb/init/outshine ()
   (add-hook 'outline-minor-mode-hook 'outshine-hook-function)
@@ -272,7 +323,9 @@
         magit-default-tracking-name-function 'magit-default-tracking-name-branch-only
         magit-status-buffer-switch-function 'switch-to-buffer)
 
-  (setq-default diff-auto-refine-mode nil))
+  (setq-default diff-auto-refine-mode nil)
+  (remove-hook 'magit-status-insert-sections-hook
+               'magit-insert-status-tags-line))
 
 (defun ddb/config/twittering ()
   (setq twittering-use-master-password t
@@ -364,6 +417,11 @@
 
   (add-hook 'org-mode-hook 'ddb/conf/org-reftex)
 
+  (defun ddb/default-directory-org-agenda ()
+    (setq default-directory org-directory))
+
+  (add-hook 'org-agenda-mode-hook 'ddb/default-directory-org-agenda)
+
   (eval-after-load "org"
     '(progn
        (require 'org-latex)
@@ -382,12 +440,20 @@
                       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                       ("\\paragraph{%s}" . "\\paragraph*{%s}"))))))
 
+(defun ddb/config/erc-join ()
+  (erc-autojoin-mode 1))
+
+(defun ddb/config/erc-services ()
+  (erc-services-mode 1))
+
 (defun ddb/config/gnus ()
   (setq gnus-always-read-dribble-file t
         gnus-message-archive-method nil)
 
   (defun ddb/hook/gnus-group ()
     (gnus-topic-mode))
+
+  (define-key gnus-summary-mode-map (kbd "<f9>") 'ddb/gnus-follow-gmane-link)
 
   (add-hook 'gnus-group-mode-hook 'ddb/hook/gnus-group))
 
