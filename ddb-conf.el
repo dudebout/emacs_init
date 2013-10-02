@@ -96,7 +96,7 @@
   (global-set-key (kbd "M-S-m") 'jump-char-backward)
   (global-set-key (kbd "<f7>") 'compile)
   (global-set-key (kbd "M-/") 'hippie-expand)
-  (global-set-key (kbd "<f12>") 'ddb/display-agenda) ;; should be moved in a package requiring org
+  (global-set-key (kbd "<f12>") 'ddb/display-org-agenda) ;; should be moved in a package requiring org
   (global-set-key (kbd "<f10>") 'linum-mode)
   (global-set-key (kbd "<f8>") 'menu-bar-mode)
   (global-set-key (kbd "C-a") 'ddb/beginning-of-line-or-indentation)
