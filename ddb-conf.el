@@ -561,7 +561,7 @@
   (ido-mode t)
   (ido-everywhere t))
 
-(defun ddb/config/ido-ubiquitous ()
+(defun ddb/init/ido-ubiquitous ()
   (ido-ubiquitous-mode t))
 
 (defun ddb/init/rainbow-delimiters ()
