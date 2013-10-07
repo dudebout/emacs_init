@@ -80,7 +80,7 @@
 (auto-use-package saveplace)
 (auto-use-package smex)
 (auto-use-package term-mode :defer t)
-(auto-use-package twittering :defer t)
+(auto-use-package twittering-mode :defer t)
 (auto-use-package uniquify)
 (auto-use-package window-number)
 (auto-use-package yaml-mode)

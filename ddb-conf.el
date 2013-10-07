@@ -327,7 +327,7 @@
   (remove-hook 'magit-status-insert-sections-hook
                'magit-insert-status-tags-line))
 
-(defun ddb/config/twittering ()
+(defun ddb/config/twittering-mode ()
   (setq twittering-use-master-password t
         twittering-icon-mode t))
 
