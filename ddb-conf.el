@@ -223,7 +223,8 @@
   (defun ddb/hook/haskell-mode ()
     (subword-mode)
     (turn-on-haskell-doc-mode)
-    (turn-on-haskell-indent))
+    (turn-on-haskell-indent)
+    (setq haskell-program-name "cabal repl"))
 
   (add-hook 'haskell-mode-hook 'ddb/hook/haskell-mode)
   (add-hook 'inferior-haskell-mode-hook 'turn-on-ghci-completion)
