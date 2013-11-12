@@ -238,8 +238,7 @@
     (setq show-trailing-whitespace nil))
   (add-hook 'term-mode-hook 'ddb/hook/term-mode))
 
-
-(setq ddb/bind/ace-jump-mode '("C-." . ace-jump-mode)
+(setq ddb/bind/ace-jump-mode '("C-=" . ace-jump-mode)
       ddb/bind/expand-region '("C-'" . ex/expand-region)
       ddb/bind/gnus '("C-c g" . gnus)
       ddb/bind/helm-files '("C-c f" . helm-find-files)
