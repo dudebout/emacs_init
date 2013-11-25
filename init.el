@@ -13,6 +13,8 @@
 (require 'cask "~/external/cask/cask.el")
 (cask-initialize "~/repositories/emacs_init")
 
+(setq package-enable-at-startup nil)
+
 (ddb/conf/general-behavior)
 (ddb/conf/copy-cut-line-at-point)
 (ddb/conf/ask-before-suspend)
