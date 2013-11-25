@@ -424,11 +424,10 @@
 
   (eval-after-load "org"
     '(progn
-       (require 'org-latex)
-       (require 'org-special-blocks)
+       (require 'ox-latex)
        (require 'ddb-org-bib)
-;       (org-clock-persistence-insinuate)
-       (add-to-list 'org-export-latex-classes
+       (org-clock-persistence-insinuate)
+       (add-to-list 'org-latex-classes
                     '("ieeecdc"
                       "\\documentclass{ieeecdc}
 \\usepackage[AUTO]{inputenc}
