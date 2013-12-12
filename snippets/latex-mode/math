@@ -1,3 +1,7 @@
-# binding: <f6>
+# binding: C-u <f6>
 # --
-`(if yas--prefix "\\[\n" "\\(")`$0`(if yas--prefix "\n\\]" "\\)")`
+
+\[
+$1
+\]
+$0
