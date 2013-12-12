@@ -463,7 +463,7 @@
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
 
 (defun ddb/conf/external-programs ()
-  (setq browse-url-generic-program "conkeror"
+  (setq browse-url-generic-program "firefox"
         browse-url-browser-function 'browse-url-generic)
   (setq-default ispell-program-name "hunspell"))
 
