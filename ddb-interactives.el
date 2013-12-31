@@ -181,4 +181,21 @@ Start `ielm' if it's not already running."
   (interactive)
   (ddb/start-or-switch-to 'ielm "*ielm*"))
 
+(defun ddb/describe-symbol-at-point-in-popup ()
+  "Show help for the symbol at point in a popup window."
+  (interactive)
+  (let* ((thing (symbol-at-point))
+         (help-xref-following t)
+         (description (save-window-excursion
+                        (with-temp-buffer
+                          (help-mode)
+                          (help-xref-interned thing)
+                          (buffer-string)))))
+    (popup-tip description
+               :point (point)
+               :around t
+               :height 30
+               :scroll-bar t
+               :margin t)))
+
 (provide 'ddb-interactives)

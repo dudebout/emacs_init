@@ -109,6 +109,7 @@
   (global-set-key (kbd "C-x M-r") 'ddb/rotate-windows)
   (global-set-key (kbd "C-x M-k") 'ddb/delete-current-buffer-and-delete-file)
   (global-set-key (kbd "C-x M-s") 'ddb/sudo-edit)
+  (global-set-key (kbd "M-/") 'ddb/describe-symbol-at-point-in-popup)
   (global-set-key (vector 'remap 'goto-line) 'ddb/goto-line-with-feedback))
 ;;;; changelog
 (defun ddb/conf/changelog ()
