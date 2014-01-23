@@ -60,6 +60,7 @@
 (auto-use-package ibuffer)
 (auto-use-package ido :defer t)
 (auto-use-package ido-ubiquitous)
+(auto-use-package ido-vertical-mode)
 (auto-use-package less-css-mode)
 (auto-use-package lexbind-mode)
 (auto-use-package magit)

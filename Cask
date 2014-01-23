@@ -29,6 +29,7 @@
 (depends-on "highlight-cl")
 (depends-on "idle-highlight-mode")
 (depends-on "ido-ubiquitous")
+(depends-on "ido-vertical-mode")
 (depends-on "jump-char")
 (depends-on "less-css-mode")
 (depends-on "lexbind-mode")

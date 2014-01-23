@@ -564,6 +564,9 @@
 (defun ddb/init/ido-ubiquitous ()
   (ido-ubiquitous-mode t))
 
+(defun ddb/init/ido-vertical-mode ()
+  (ido-vertical-mode 1))
+
 (defun ddb/init/rainbow-delimiters ()
   (global-rainbow-delimiters-mode))
 
