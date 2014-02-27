@@ -333,6 +333,9 @@
         twittering-icon-mode t))
 
 (defun ddb/config/org ()
+  ;; TEMPORARY http://debbugs.gnu.org/cgi/bugreport.cgi?bug=16265
+  (setq-default cache-long-scans nil)
+
   (setq org-startup-indented t
         org-use-speed-commands t
         org-src-fontify-natively t
