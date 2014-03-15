@@ -16,6 +16,7 @@
 (depends-on "eproject")
 (depends-on "esup")
 (depends-on "expand-region")
+(depends-on "flx-ido")
 (depends-on "ghc")
 (depends-on "ghci-completion")
 (depends-on "git-commit-mode")

@@ -50,6 +50,7 @@
 (auto-use-package erc-services)
 (auto-use-package expand-region)
 (auto-use-package ffap)
+(auto-use-package flx-ido)
 (auto-use-package flyspell :defer t)
 (auto-use-package git-gutter)
 (auto-use-package gnus)
