@@ -539,12 +539,18 @@
   (add-hook 'ibuffer-mode-hook 'ddb/hook/ibuffer-mode))
 
 (defun ddb/config/ffap ()
-  (setq ffap-kpathsea-depth 4)
 
   (defun ffap-latex-mode (name)
-    (ffap-tex-init)
-    ;; only rare need for ""
-    (ffap-locate-file name '(".cls" ".sty" ".tex" ".bib" ".tikz" "") ffap-tex-path)))
+    "ffap function in latex buffers, using kpsewhich."
+    (with-temp-buffer
+      ;; order is important : the first path found will be opened
+      ;; only rare need for ""
+      (let ((ext '(".tex" ".sty" ".cls" ".bib" ".tikz" ""))
+            args)
+        (setq args (mapcar (lambda (x) (concat name x)) ext))
+        (funcall `(lambda () (call-process  "kpsewhich"  nil  t  nil ,@args)))
+        (when (< (point-min) (point-max))
+          (buffer-substring (goto-char (point-min)) (point-at-eol)))))))
 
 (defun ddb/init/yasnippet ()
   (yas-global-mode 1))
@@ -558,6 +564,9 @@
   (setq ido-create-new-buffer 'always
         ido-ignore-files '("\\`CVS/" "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./" "\\.hi\\'")
         ido-enable-flex-matching t
+        ido-ignore-extensions t
+        ;; setting for latex that should probably be moved to projectile
+        completion-ignored-extensions '(".make" ".temp" ".acn" ".aux" ".bbl" ".blg" ".d" ".fls" ".ist" ".log" ".pdf")
         ido-use-virtual-buffers t
         ido-use-filename-at-point 'guess
         ido-use-url-at-point t)
