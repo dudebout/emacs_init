@@ -81,6 +81,7 @@
 (auto-use-package rainbow-delimiters)
 (auto-use-package redshank)
 (auto-use-package saveplace)
+(auto-use-package sass-mode)
 (auto-use-package smex)
 (auto-use-package term-mode :defer t)
 (auto-use-package twittering-mode :defer t)

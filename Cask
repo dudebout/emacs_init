@@ -46,6 +46,7 @@
 (depends-on "rainbow-delimiters")
 (depends-on "rainbow-mode")
 (depends-on "redshank")
+(depends-on "sass-mode")
 (depends-on "smex")
 (depends-on "ssh-config-mode")
 (depends-on "twittering-mode")
