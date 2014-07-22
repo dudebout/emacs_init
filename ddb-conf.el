@@ -422,7 +422,7 @@
   (add-hook 'org-mode-hook 'ddb/conf/org-reftex)
 
   (defun ddb/default-directory-org-agenda ()
-    (setq default-directory org-directory))
+    (setq default-directory (expand-file-name org-directory)))
 
   (add-hook 'org-agenda-mode-hook 'ddb/default-directory-org-agenda)
 
